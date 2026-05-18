@@ -4,7 +4,7 @@ const items = [
   "BRC-minded operations",
   "Daily exotic & core lines",
   "Frozen Rupa · Shana · Taj",
-  "London dispatch from 4am",
+  "Leicester dispatch from 4am",
   "WhatsApp trade desk",
   "Retail-ready grocery",
 ];

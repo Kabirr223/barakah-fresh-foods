@@ -12,7 +12,8 @@ export function JsonLd() {
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.addressLine1,
-      addressLocality: siteConfig.addressLine2,
+      addressLocality: "Leicester",
+      postalCode: "LE1 2TE",
       addressCountry: siteConfig.country,
     },
     openingHoursSpecification: [
@@ -31,8 +32,8 @@ export function JsonLd() {
       },
     ],
     areaServed: {
-      "@type": "Country",
-      name: "United Kingdom",
+      "@type": "City",
+      name: "Leicester",
     },
   };
 

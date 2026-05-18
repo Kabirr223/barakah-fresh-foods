@@ -55,7 +55,7 @@ export function SiteHeader() {
                   {siteConfig.name}
                 </span>
                 <span className="hidden text-[11px] text-muted-foreground sm:block">
-                  Wholesale · UK-wide
+                  Wholesale · Leicester
                 </span>
               </span>
             </button>

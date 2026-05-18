@@ -15,6 +15,14 @@ import { Button } from "@/components/ui/button";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
 import { useCatalog } from "@/context/catalog-context";
 import { products } from "@/data/products";
+import { localImage } from "@/lib/image-catalog";
+
+const floaters = [
+  { src: localImage("tomatoes"), label: "Tomatoes", className: "left-[6%] top-[18%] w-24 sm:w-32" },
+  { src: localImage("fruitMix"), label: "Citrus", className: "right-[8%] top-[22%] w-28 sm:w-36" },
+  { src: localImage("vegGreens"), label: "Greens", className: "left-[12%] bottom-[18%] w-24 sm:w-30" },
+  { src: localImage("bananas"), label: "Tropical", className: "right-[14%] bottom-[20%] w-28 sm:w-36" },
+];
 
 function useCountUp(target: number, durationMs = 1600) {
   const mv = useMotionValue(0);
@@ -40,13 +48,6 @@ function StatNumber({ mv }: { mv: MotionValue<number> }) {
   useMotionValueEvent(mv, "change", (v) => setN(Math.round(v)));
   return <span>{n}</span>;
 }
-
-const floaters = [
-  { src: "photo-1592841200221-a6898f307baa", label: "Tomatoes", className: "left-[6%] top-[18%] w-24 sm:w-32" },
-  { src: "photo-1619566636858-adf3ef46400b", label: "Citrus", className: "right-[8%] top-[22%] w-28 sm:w-36" },
-  { src: "photo-1597362925123-77861d3fbac7", label: "Greens", className: "left-[12%] bottom-[18%] w-24 sm:w-30" },
-  { src: "photo-1603833665858-e61d17a86224", label: "Tropical", className: "right-[14%] bottom-[20%] w-28 sm:w-36" },
-];
 
 export function HeroSection() {
   const { scrollTo } = useLenisScroll();
@@ -99,7 +100,7 @@ export function HeroSection() {
             className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
           >
             <Sparkles className="size-3.5" />
-            UK wholesale · Daily replenishment
+            Leicester wholesale · Daily replenishment
           </motion.div>
 
           <motion.h1
@@ -120,7 +121,7 @@ export function HeroSection() {
           >
             Wholesale fruit, vegetables, exotic produce, frozen foods, and
             groceries supplied to restaurants, retailers, caterers, and businesses
-            across the UK.
+            across Leicester and Leicestershire.
           </motion.p>
 
           <motion.div
@@ -198,7 +199,7 @@ export function HeroSection() {
             >
               <div className="relative aspect-[4/5] w-full">
                 <Image
-                  src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80"
+                  src={localImage("market")}
                   alt="Premium wholesale produce display"
                   fill
                   priority
@@ -230,7 +231,7 @@ export function HeroSection() {
               >
                 <div className="relative aspect-square w-full">
                   <Image
-                    src={`https://images.unsplash.com/${f.src}?auto=format&fit=crop&w=400&q=80`}
+                    src={f.src}
                     alt={f.label}
                     fill
                     className="object-cover"

@@ -1,64 +1,59 @@
 import type { Product, ProductCategory, CategoryMeta } from "@/types/catalog";
+import {
+  brandImageKeys,
+  categoryImageKeys,
+  localImage,
+  productImageKeys,
+  type StockImageKey,
+} from "@/lib/image-catalog";
 
-const u = (id: string, sig?: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80${sig ? `&sig=${sig}` : ""}`;
+const img = (key: StockImageKey) => localImage(key);
 
-/** Curated Unsplash paths (stable, CDN-friendly) */
-const img = {
-  veg: u("photo-1597362925123-77861d3fbac7", "v1"),
-  veg2: u("photo-1464226184884-fa280b87c399", "v2"),
-  fruit: u("photo-1619566636858-adf3ef46400b", "f1"),
-  fruit2: u("photo-1490474418585-ba7cbaf7d668", "f2"),
-  herbs: u("photo-1518843875459-7387b4564170", "h1"),
-  exotic: u("photo-1587735284876-9e322886d8a0", "e1"),
-  frozen: u("photo-1625220194771-df66bb6f0edc", "fr"),
-  snacks: u("photo-1625246333195-f78f7827be53", "sn"),
-  drinks: u("photo-1629203851122-4396fe056f69", "dr"),
-  wholesale: u("photo-1542838132-92c53300491e", "wh"),
-};
+const productImg = (id: string) =>
+  img(productImageKeys[id] ?? "market");
 
 export const categoryShowcase: CategoryMeta[] = [
   {
     slug: "vegetables",
     title: "Fresh Vegetables",
     subtitle: "Daily arrivals, restaurant-grade quality.",
-    image: img.veg,
+    image: img(categoryImageKeys.vegetables),
   },
   {
     slug: "fruits",
     title: "Fresh Fruits",
     subtitle: "Seasonal picks and premium varietals.",
-    image: img.fruit,
+    image: img(categoryImageKeys.fruits),
   },
   {
     slug: "exotic",
     title: "Exotic Produce",
     subtitle: "Speciality roots, plantains, and more.",
-    image: u("photo-1592419044706-39796d40f98c", "ex"),
+    image: img(categoryImageKeys.exotic),
   },
   {
     slug: "frozen",
     title: "Frozen Foods",
     subtitle: "Trusted freezer lines for busy kitchens.",
-    image: img.frozen,
+    image: img(categoryImageKeys.frozen),
   },
   {
     slug: "herbs",
     title: "Herbs & Greens",
     subtitle: "Aromatic herbs and leafy essentials.",
-    image: img.herbs,
+    image: img(categoryImageKeys.herbs),
   },
   {
     slug: "snacks",
     title: "Snacks & Grocery",
     subtitle: "Retail-ready favourites and staples.",
-    image: img.snacks,
+    image: img(categoryImageKeys.snacks),
   },
   {
     slug: "drinks",
     title: "Drinks",
     subtitle: "Chilled classics customers ask for by name.",
-    image: img.drinks,
+    image: img(categoryImageKeys.drinks),
   },
 ];
 
@@ -67,19 +62,19 @@ export const frozenBrandCards = [
     brand: "Rupa" as const,
     headline: "Authentic freezer staples",
     copy: "Paratha, naan, and savoury bites built for volume without compromising texture.",
-    image: u("photo-1565557623262-b40c640309ca", "rupa"),
+    image: img(brandImageKeys.Rupa),
   },
   {
     brand: "Shana" as const,
     headline: "Premium frozen speciality",
     copy: "Okra, spinach, and patra lines that hold beautifully from freezer to service.",
-    image: u("photo-1604908176997-125f25cc6f11", "shana"),
+    image: img(brandImageKeys.Shana),
   },
   {
     brand: "Taj" as const,
     headline: "Kitchen-ready classics",
     copy: "Samosa, kachori, and mogo chips with consistent fry and bake performance.",
-    image: u("photo-1601050690597-1033a69b8bdf", "taj"),
+    image: img(brandImageKeys.Taj),
   },
 ];
 
@@ -91,7 +86,7 @@ export const products: Product[] = [
     price: "£16",
     category: "vegetables",
     description: "Fresh drinking coconuts — ideal for juice bars and dessert menus.",
-    image: u("photo-1580984967461-10a93d6b1cb2", "coco"),
+    image: productImg("veg-coconuts"),
   },
   {
     id: "veg-vine-tomatoes",
@@ -99,7 +94,7 @@ export const products: Product[] = [
     price: "£9.50",
     category: "vegetables",
     description: "Vine-ripened tomatoes with deep colour and balanced acidity.",
-    image: u("photo-1592841200221-a6898f307baa", "vt"),
+    image: productImg("veg-vine-tomatoes"),
   },
   {
     id: "veg-loose-tomato-dutch",
@@ -107,7 +102,7 @@ export const products: Product[] = [
     price: "£13",
     category: "vegetables",
     description: "Dutch loose tomatoes — consistent sizing for prep teams.",
-    image: u("photo-1546470427-227b3bbd9f2a", "ltd"),
+    image: productImg("veg-loose-tomato-dutch"),
   },
   {
     id: "veg-cherry-vine-dutch",
@@ -115,7 +110,7 @@ export const products: Product[] = [
     price: "£16.50",
     category: "vegetables",
     description: "Sweet cherry tomatoes on the vine for premium plating.",
-    image: u("photo-1592924357228-91a4daadcfea", "cvd"),
+    image: productImg("veg-cherry-vine-dutch"),
   },
   {
     id: "veg-green-pepper",
@@ -123,7 +118,7 @@ export const products: Product[] = [
     price: "£14",
     category: "vegetables",
     description: "Firm capsicums with a clean, bright bite.",
-    image: u("photo-1563565375-f3fdfdbefa83", "gp"),
+    image: productImg("veg-green-pepper"),
   },
   {
     id: "veg-red-pepper",
@@ -131,7 +126,7 @@ export const products: Product[] = [
     price: "£15",
     category: "vegetables",
     description: "Fully coloured reds — excellent for roasting and grills.",
-    image: u("photo-1563565375-f3fdfdbefa83", "rp"),
+    image: productImg("veg-red-pepper"),
   },
   {
     id: "veg-yellow-pepper",
@@ -139,7 +134,7 @@ export const products: Product[] = [
     price: "£16",
     category: "vegetables",
     description: "Golden capsicums with mellow sweetness.",
-    image: u("photo-1563565375-f3fdfdbefa83", "yp"),
+    image: productImg("veg-yellow-pepper"),
   },
   {
     id: "veg-aubergine",
@@ -147,7 +142,7 @@ export const products: Product[] = [
     price: "£10",
     category: "vegetables",
     description: "Glossy skins and creamy centres — perfect for grills and bakes.",
-    image: u("photo-1628773822507-83f30467d316", "aub"),
+    image: productImg("veg-aubergine"),
   },
   {
     id: "veg-cucumber",
@@ -155,7 +150,7 @@ export const products: Product[] = [
     price: "£9",
     category: "vegetables",
     description: "Crisp cucumbers for salads, pickles, and cold plates.",
-    image: u("photo-1584278858538-d62f52236e63", "cuc"),
+    image: productImg("veg-cucumber"),
   },
   {
     id: "veg-courgette",
@@ -163,7 +158,7 @@ export const products: Product[] = [
     price: "£9",
     category: "vegetables",
     description: "Tender courgettes with delicate flavour for high-heat cooking.",
-    image: u("photo-1599599810769-bcde5a160d52", "cou"),
+    image: productImg("veg-courgette"),
   },
   {
     id: "veg-carrots",
@@ -171,7 +166,7 @@ export const products: Product[] = [
     price: "£7",
     category: "vegetables",
     description: "Sweet, crunchy roots — ideal for stocks, roasts, and juicing.",
-    image: u("photo-1598170845058-32b9d6a5da37", "car"),
+    image: productImg("veg-carrots"),
   },
   {
     id: "veg-sweet-potato",
@@ -179,7 +174,7 @@ export const products: Product[] = [
     price: "£18",
     category: "vegetables",
     description: "Dense, sugary flesh — excellent yield for sides and fries.",
-    image: u("photo-1596097608883-1ad7a5c6f436", "sp"),
+    image: productImg("veg-sweet-potato"),
   },
   {
     id: "veg-jalapeno",
@@ -187,7 +182,7 @@ export const products: Product[] = [
     price: "£18",
     category: "vegetables",
     description: "Bright heat with consistent spice levels batch to batch.",
-    image: u("photo-1589927986089-35812388d1b4", "jal"),
+    image: productImg("veg-jalapeno"),
   },
   {
     id: "veg-spanish-onion",
@@ -195,7 +190,7 @@ export const products: Product[] = [
     price: "£16",
     category: "vegetables",
     description: "Large Spanish onions — high juice content for caramelisation.",
-    image: u("photo-1518977676601-b53f82aba655", "on"),
+    image: productImg("veg-spanish-onion"),
   },
   {
     id: "veg-cyprus-potato",
@@ -203,7 +198,7 @@ export const products: Product[] = [
     price: "£30",
     category: "vegetables",
     description: "Premium Cyprus potatoes — fluffy texture, exceptional roast results.",
-    image: u("photo-1518977676601-b53f82aba655", "cp"),
+    image: productImg("veg-cyprus-potato"),
   },
 
   // Fruits
@@ -213,7 +208,7 @@ export const products: Product[] = [
     price: "£14",
     category: "fruits",
     description: "Aromatic custard apples — handle gently, serve at perfect ripeness.",
-    image: u("photo-1619566636858-adf3ef46400b", "ca"),
+    image: productImg("fr-custard-apples"),
   },
   {
     id: "fr-banana-chiquita",
@@ -221,7 +216,7 @@ export const products: Product[] = [
     price: "£20",
     category: "fruits",
     description: "Branded Chiquita lines with dependable ripening curves.",
-    image: u("photo-1603833665858-e61d17a86224", "ban"),
+    image: productImg("fr-banana-chiquita"),
   },
   {
     id: "fr-royal-gala",
@@ -229,7 +224,7 @@ export const products: Product[] = [
     price: "£16",
     category: "fruits",
     description: "Crisp gala apples with balanced sweetness.",
-    image: u("photo-1560806887-1e4cd0b6cbd6", "gal"),
+    image: productImg("fr-royal-gala"),
   },
   {
     id: "fr-green-apple",
@@ -237,7 +232,7 @@ export const products: Product[] = [
     price: "£16.50",
     category: "fruits",
     description: "Tart green apples — excellent for pastry and juice.",
-    image: u("photo-1568702846914-96b444d6a491", "ga"),
+    image: productImg("fr-green-apple"),
   },
   {
     id: "fr-oranges",
@@ -245,7 +240,7 @@ export const products: Product[] = [
     price: "£13.50",
     category: "fruits",
     description: "Juicing and eating oranges with vibrant zest aroma.",
-    image: u("photo-1547514701-42782101795e", "or"),
+    image: productImg("fr-oranges"),
   },
   {
     id: "fr-lemons",
@@ -253,7 +248,7 @@ export const products: Product[] = [
     price: "£18",
     category: "fruits",
     description: "High-oil skins for bars, kitchens, and patisserie.",
-    image: u("photo-1590502593741-5a536f19a6b0", "lem"),
+    image: productImg("fr-lemons"),
   },
   {
     id: "fr-mango-brazil",
@@ -261,7 +256,7 @@ export const products: Product[] = [
     price: "£8",
     category: "fruits",
     description: "Value-forward Brazilian mangoes for high-volume service.",
-    image: u("photo-1605027990121-c832e89a127b", "mb"),
+    image: productImg("fr-mango-brazil"),
   },
   {
     id: "fr-mango-by-air",
@@ -269,7 +264,7 @@ export const products: Product[] = [
     price: "£38",
     category: "fruits",
     description: "Air-freighted mangoes for peak aroma and silky texture.",
-    image: u("photo-1605027990121-c832e89a127b", "ma"),
+    image: productImg("fr-mango-by-air"),
   },
   {
     id: "fr-grapes",
@@ -277,7 +272,7 @@ export const products: Product[] = [
     price: "£18–22",
     category: "fruits",
     description: "Seasonal grape lines — pricing varies by origin and bunch quality.",
-    image: u("photo-1595475207227-854b7e250d88", "gr"),
+    image: productImg("fr-grapes"),
   },
   {
     id: "fr-pomegranate",
@@ -285,7 +280,7 @@ export const products: Product[] = [
     price: "£13.50",
     category: "fruits",
     description: "Ruby arils with bright acidity — retail and juice friendly.",
-    image: u("photo-1541344992630-4a0e03d53d38", "pom"),
+    image: productImg("fr-pomegranate"),
   },
   {
     id: "fr-watermelon",
@@ -293,7 +288,7 @@ export const products: Product[] = [
     price: "£24",
     category: "fruits",
     description: "Heavy, resonant melons — cut-to-order programmes available.",
-    image: u("photo-1587049352846-4a222e784d38", "wm"),
+    image: productImg("fr-watermelon"),
   },
 
   // Herbs
@@ -303,7 +298,7 @@ export const products: Product[] = [
     price: "£10",
     category: "herbs",
     description: "Bunched coriander with intense aroma for finishing.",
-    image: u("photo-1606857521015-7f1fcf422752", "cor"),
+    image: productImg("hb-coriander"),
   },
   {
     id: "hb-mint",
@@ -311,7 +306,7 @@ export const products: Product[] = [
     price: "£14",
     category: "herbs",
     description: "Peppermint-forward bunches for drinks and desserts.",
-    image: u("photo-1606914469633-b2ac3060332e", "mint"),
+    image: productImg("hb-mint"),
   },
   {
     id: "hb-spinach",
@@ -319,7 +314,7 @@ export const products: Product[] = [
     price: "£10",
     category: "herbs",
     description: "Tender leaves for wilting, smoothies, and retail packs.",
-    image: u("photo-1576045057995-568f5887c999", "spin"),
+    image: productImg("hb-spinach"),
   },
   {
     id: "hb-parsley",
@@ -327,7 +322,7 @@ export const products: Product[] = [
     price: "£12",
     category: "herbs",
     description: "Flat and curly lines available — ask your account manager.",
-    image: u("photo-1618377386527-340c75a7c658", "par"),
+    image: productImg("hb-parsley"),
   },
   {
     id: "hb-dill",
@@ -335,7 +330,7 @@ export const products: Product[] = [
     price: "£12",
     category: "herbs",
     description: "Feathery dill for seafood, pickles, and sauces.",
-    image: u("photo-1506806732259-39c2d0268443", "dil"),
+    image: productImg("hb-dill"),
   },
 
   // Exotic
@@ -345,7 +340,7 @@ export const products: Product[] = [
     price: "£38",
     category: "exotic",
     description: "Clean-peeled cassava — ideal for boiling, frying, and wholesale prep.",
-    image: u("photo-1592419044706-39796d40f98c", "cas"),
+    image: productImg("ex-cassava"),
   },
   {
     id: "ex-white-yam",
@@ -353,7 +348,7 @@ export const products: Product[] = [
     price: "£40",
     category: "exotic",
     description: "Dense white yam — premium staple for international menus.",
-    image: u("photo-1595855759920-86582396756a", "yam"),
+    image: productImg("ex-white-yam"),
   },
   {
     id: "ex-plantain",
@@ -361,7 +356,7 @@ export const products: Product[] = [
     price: "£30–38",
     category: "exotic",
     description: "Sizing grades available — perfect for fry programmes.",
-    image: u("photo-1615485925600-97237c4fc1ca", "pl"),
+    image: productImg("ex-plantain"),
   },
   {
     id: "ex-eddoes",
@@ -369,7 +364,7 @@ export const products: Product[] = [
     price: "£28",
     category: "exotic",
     description: "Small, nutty eddoes — excellent for stews and Caribbean dishes.",
-    image: u("photo-1595855759920-86582396756a", "edd"),
+    image: productImg("ex-eddoes"),
   },
   {
     id: "ex-matoki",
@@ -377,7 +372,7 @@ export const products: Product[] = [
     price: "£22",
     category: "exotic",
     description: "Green cooking bananas — staple for East African kitchens.",
-    image: u("photo-1603833665858-e61d17a86224", "mat"),
+    image: productImg("ex-matoki"),
   },
 
   // Frozen (branded)
@@ -388,7 +383,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Rupa",
     description: "Layered paratha with reliable puff and separation.",
-    image: u("photo-1565557623262-b40c640309ca", "fz1"),
+    image: productImg("fz-paratha"),
   },
   {
     id: "fz-naan",
@@ -397,7 +392,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Shana",
     description: "Freezer-to-oven naan with even blistering.",
-    image: u("photo-1604908176997-125f25cc6f11", "fz2"),
+    image: productImg("fz-naan"),
   },
   {
     id: "fz-samosa",
@@ -406,7 +401,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Taj",
     description: "Crisp pastry, well-spiced fillings — consistent fry performance.",
-    image: u("photo-1601050690597-1033a69b8bdf", "fz3"),
+    image: productImg("fz-samosa"),
   },
   {
     id: "fz-okra",
@@ -415,7 +410,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Shana",
     description: "Whole okra that holds shape through cooking.",
-    image: u("photo-1604908176997-125f25cc6f11", "fz4"),
+    image: productImg("fz-okra"),
   },
   {
     id: "fz-spinach",
@@ -424,7 +419,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Rupa",
     description: "Blanched spinach for curries, fillings, and retail.",
-    image: u("photo-1565557623262-b40c640309ca", "fz5"),
+    image: productImg("fz-spinach"),
   },
   {
     id: "fz-mogo",
@@ -433,7 +428,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Taj",
     description: "Casava chips with crisp exteriors and fluffy centres.",
-    image: u("photo-1601050690597-1033a69b8bdf", "fz6"),
+    image: productImg("fz-mogo"),
   },
   {
     id: "fz-patra",
@@ -442,7 +437,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Shana",
     description: "Layered patra rolls for snack and buffet programmes.",
-    image: u("photo-1604908176997-125f25cc6f11", "fz7"),
+    image: productImg("fz-patra"),
   },
   {
     id: "fz-kachori",
@@ -451,7 +446,7 @@ export const products: Product[] = [
     category: "frozen",
     brand: "Rupa",
     description: "Spiced kachori — ideal for catering and grab-and-go.",
-    image: u("photo-1565557623262-b40c640309ca", "fz8"),
+    image: productImg("fz-kachori"),
   },
 
   // Snacks
@@ -461,7 +456,7 @@ export const products: Product[] = [
     price: "POA",
     category: "snacks",
     description: "Retail-ready crisps — high velocity on multicultural shelves.",
-    image: img.snacks,
+    image: productImg("sn-kurkure"),
   },
   {
     id: "sn-lays",
@@ -469,7 +464,7 @@ export const products: Product[] = [
     price: "POA",
     category: "snacks",
     description: "Classic Lay’s lines for impulse and meal deals.",
-    image: u("photo-1625246333195-f78f7827be53", "lays"),
+    image: productImg("sn-lays"),
   },
   {
     id: "sn-maggi",
@@ -477,7 +472,7 @@ export const products: Product[] = [
     price: "POA",
     category: "snacks",
     description: "Noodles and seasonings for fast-moving grocery.",
-    image: u("photo-1612929633738-8fe44f7ec841", "mag"),
+    image: productImg("sn-maggi"),
   },
   {
     id: "sn-parle-g",
@@ -485,7 +480,7 @@ export const products: Product[] = [
     price: "POA",
     category: "snacks",
     description: "Biscuit packs with strong repeat purchase.",
-    image: u("photo-1558961363-fa8fdf82db35", "pg"),
+    image: productImg("sn-parle-g"),
   },
   {
     id: "sn-chaat-puri",
@@ -493,7 +488,7 @@ export const products: Product[] = [
     price: "POA",
     category: "snacks",
     description: "Crisp puri shells for chaat counters and events.",
-    image: u("photo-1586201370766-838b75b3ad8a", "cp"),
+    image: productImg("sn-chaat-puri"),
   },
   {
     id: "sn-pani-puri",
@@ -501,7 +496,7 @@ export const products: Product[] = [
     price: "POA",
     category: "snacks",
     description: "Ready-to-fill shells — pair with spiced waters.",
-    image: u("photo-1601050690597-1033a69b8bdf", "pp"),
+    image: productImg("sn-pani-puri"),
   },
 
   // Drinks
@@ -511,7 +506,7 @@ export const products: Product[] = [
     price: "POA",
     category: "drinks",
     description: "Mango drink — chilled retail favourite.",
-    image: img.drinks,
+    image: productImg("dr-frooti"),
   },
   {
     id: "dr-maaza",
@@ -519,7 +514,7 @@ export const products: Product[] = [
     price: "POA",
     category: "drinks",
     description: "Mango beverage with smooth mouthfeel.",
-    image: u("photo-1625772459859-afd5601c2a9b", "mz"),
+    image: productImg("dr-maaza"),
   },
   {
     id: "dr-thumbs-up",
@@ -527,7 +522,7 @@ export const products: Product[] = [
     price: "POA",
     category: "drinks",
     description: "Bold cola profile for takeaway and retail.",
-    image: u("photo-1629203851122-4396fe056f69", "tu"),
+    image: productImg("dr-thumbs-up"),
   },
   {
     id: "dr-limca",
@@ -535,7 +530,7 @@ export const products: Product[] = [
     price: "POA",
     category: "drinks",
     description: "Lime-lemon sparkle — perfect for chilled sets.",
-    image: u("photo-1625772459859-afd5601c2a9b", "lm"),
+    image: productImg("dr-limca"),
   },
   {
     id: "dr-mirinda",
@@ -543,7 +538,7 @@ export const products: Product[] = [
     price: "POA",
     category: "drinks",
     description: "Fruit-forward soda for vibrant cold displays.",
-    image: u("photo-1625772459859-afd5601c2a9b", "mi"),
+    image: productImg("dr-mirinda"),
   },
 ];
 

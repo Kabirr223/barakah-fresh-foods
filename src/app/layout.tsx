@@ -32,15 +32,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Premium Wholesale Produce UK`,
+    default: `${siteConfig.name} | Premium Wholesale Produce Leicester`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "wholesale produce UK",
-    "fresh fruit and vegetables wholesale",
-    "exotic produce supplier",
-    "frozen foods wholesale",
+    "wholesale produce Leicester",
+    "fresh fruit and vegetables wholesale Leicester",
+    "exotic produce supplier Leicester",
+    "frozen foods wholesale Leicester",
     "Barakah Fresh Foods",
   ],
   authors: [{ name: siteConfig.name }],

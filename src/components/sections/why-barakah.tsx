@@ -23,7 +23,7 @@ const points = [
   },
   {
     title: "Reliable delivery",
-    body: "Time-windowed drops across London and scheduled UK-wide freight.",
+    body: "Time-windowed drops across Leicester and scheduled Leicestershire routes.",
     icon: Truck,
   },
   {

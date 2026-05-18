@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
+import { localImage } from "@/lib/image-catalog";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -100,7 +101,7 @@ export function ExperienceSection() {
         <div className="relative">
           <div className="bf-exp-hero relative aspect-[4/5] overflow-hidden rounded-[2.25rem] border border-white/15 shadow-2xl shadow-primary/15 ring-1 ring-white/20">
             <Image
-              src="https://images.unsplash.com/photo-1504674900240-903c1f137a88?auto=format&fit=crop&w=1400&q=80"
+              src={localImage("chefPrep")}
               alt="Chef preparing fresh ingredients"
               fill
               className="object-cover"
@@ -121,7 +122,7 @@ export function ExperienceSection() {
           <div className="bf-exp-panel absolute -right-4 top-10 hidden w-44 overflow-hidden rounded-2xl border border-white/20 shadow-xl sm:block">
             <div className="relative aspect-[3/4]">
               <Image
-                src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=600&q=80"
+                src={localImage("fruitBowl")}
                 alt="Colourful fresh fruit arrangement"
                 fill
                 className="object-cover"
