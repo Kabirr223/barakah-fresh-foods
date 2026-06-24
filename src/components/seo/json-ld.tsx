@@ -12,8 +12,8 @@ export function JsonLd() {
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.addressLine1,
-      addressLocality: "Leicester",
-      postalCode: "LE2 1FX",
+      addressLocality: siteConfig.addressLine2,
+      postalCode: siteConfig.addressPostcode,
       addressCountry: siteConfig.country,
     },
     areaServed: [

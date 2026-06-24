@@ -66,6 +66,10 @@ export const metadata: Metadata = {
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: siteConfig.logo,
+    apple: siteConfig.logo,
+  },
 };
 
 export const viewport: Viewport = {

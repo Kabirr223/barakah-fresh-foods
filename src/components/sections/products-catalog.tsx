@@ -432,7 +432,7 @@ export function ProductsCatalog() {
                     {categoryLabels[selected.category]}
                   </Badge>
                   <Badge className="border-bf-leaf/30 bg-bf-leaf/10 font-semibold text-bf-leaf">
-                    Contact For Availability
+                    {getAvailabilityLabel(0)}
                   </Badge>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">

@@ -92,6 +92,8 @@ export function SiteFooter() {
                   {siteConfig.addressLine1}
                   <br />
                   {siteConfig.addressLine2}
+                  <br />
+                  {siteConfig.addressPostcode}
                 </span>
               </li>
               <li className="flex items-center gap-2">

@@ -140,9 +140,12 @@ export function SiteHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="absolute right-0 top-0 flex h-full w-[min(100%,360px)] flex-col gap-1 border-l border-bf-gold/20 bg-bf-charcoal/98 p-6 pt-24 backdrop-blur-xl"
+              className="absolute right-0 top-0 flex h-full w-[min(100%,360px)] flex-col gap-1 border-l border-bf-gold/20 bg-bf-charcoal/98 p-6 pt-20 backdrop-blur-xl"
               aria-label="Mobile primary"
             >
+              <div className="mb-4 flex justify-center border-b border-bf-gold/15 pb-4">
+                <Logo size="md" showText={false} />
+              </div>
               {links.map((l, i) => (
                 <motion.button
                   key={l.id}
