@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 
 const sectionIds = [
   "hero",
-  "categories",
   "products",
+  "about",
   "why",
-  "experience",
-  "clients",
-  "testimonials",
-  "cta",
+  "process",
+  "order-reminder",
   "contact",
 ] as const;
 

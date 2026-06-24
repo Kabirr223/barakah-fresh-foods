@@ -1,6 +1,5 @@
 import type { Product, ProductCategory, CategoryMeta } from "@/types/catalog";
 import {
-  brandImageKeys,
   categoryImageKeys,
   localImage,
   productImageKeys,
@@ -15,71 +14,29 @@ const productImg = (id: string) =>
 export const categoryShowcase: CategoryMeta[] = [
   {
     slug: "vegetables",
-    title: "Fresh Vegetables",
+    title: "Vegetables & Fresh Produce",
     subtitle: "Daily arrivals, restaurant-grade quality.",
     image: img(categoryImageKeys.vegetables),
+    icon: "vegetables",
   },
   {
     slug: "fruits",
-    title: "Fresh Fruits",
+    title: "Fruits",
     subtitle: "Seasonal picks and premium varietals.",
     image: img(categoryImageKeys.fruits),
-  },
-  {
-    slug: "exotic",
-    title: "Exotic Produce",
-    subtitle: "Speciality roots, plantains, and more.",
-    image: img(categoryImageKeys.exotic),
-  },
-  {
-    slug: "frozen",
-    title: "Frozen Foods",
-    subtitle: "Trusted freezer lines for busy kitchens.",
-    image: img(categoryImageKeys.frozen),
+    icon: "fruits",
   },
   {
     slug: "herbs",
-    title: "Herbs & Greens",
+    title: "Herbs & Speciality Products",
     subtitle: "Aromatic herbs and leafy essentials.",
     image: img(categoryImageKeys.herbs),
-  },
-  {
-    slug: "snacks",
-    title: "Snacks & Grocery",
-    subtitle: "Retail-ready favourites and staples.",
-    image: img(categoryImageKeys.snacks),
-  },
-  {
-    slug: "drinks",
-    title: "Drinks",
-    subtitle: "Chilled classics customers ask for by name.",
-    image: img(categoryImageKeys.drinks),
-  },
-];
-
-export const frozenBrandCards = [
-  {
-    brand: "Rupa" as const,
-    headline: "Authentic freezer staples",
-    copy: "Paratha, naan, and savoury bites built for volume without compromising texture.",
-    image: img(brandImageKeys.Rupa),
-  },
-  {
-    brand: "Shana" as const,
-    headline: "Premium frozen speciality",
-    copy: "Okra, spinach, and patra lines that hold beautifully from freezer to service.",
-    image: img(brandImageKeys.Shana),
-  },
-  {
-    brand: "Taj" as const,
-    headline: "Kitchen-ready classics",
-    copy: "Samosa, kachori, and mogo chips with consistent fry and bake performance.",
-    image: img(brandImageKeys.Taj),
+    icon: "herbs",
   },
 ];
 
 export const products: Product[] = [
-  // Vegetables
+  // Vegetables & Fresh Produce
   {
     id: "veg-coconuts",
     name: "Coconuts",
@@ -87,6 +44,7 @@ export const products: Product[] = [
     category: "vegetables",
     description: "Fresh drinking coconuts — ideal for juice bars and dessert menus.",
     image: productImg("veg-coconuts"),
+    featured: true,
   },
   {
     id: "veg-vine-tomatoes",
@@ -95,6 +53,7 @@ export const products: Product[] = [
     category: "vegetables",
     description: "Vine-ripened tomatoes with deep colour and balanced acidity.",
     image: productImg("veg-vine-tomatoes"),
+    featured: true,
   },
   {
     id: "veg-loose-tomato-dutch",
@@ -111,6 +70,7 @@ export const products: Product[] = [
     category: "vegetables",
     description: "Sweet cherry tomatoes on the vine for premium plating.",
     image: productImg("veg-cherry-vine-dutch"),
+    featured: true,
   },
   {
     id: "veg-green-pepper",
@@ -199,6 +159,7 @@ export const products: Product[] = [
     category: "vegetables",
     description: "Premium Cyprus potatoes — fluffy texture, exceptional roast results.",
     image: productImg("veg-cyprus-potato"),
+    featured: true,
   },
 
   // Fruits
@@ -217,6 +178,7 @@ export const products: Product[] = [
     category: "fruits",
     description: "Branded Chiquita lines with dependable ripening curves.",
     image: productImg("fr-banana-chiquita"),
+    featured: true,
   },
   {
     id: "fr-royal-gala",
@@ -225,6 +187,7 @@ export const products: Product[] = [
     category: "fruits",
     description: "Crisp gala apples with balanced sweetness.",
     image: productImg("fr-royal-gala"),
+    featured: true,
   },
   {
     id: "fr-green-apple",
@@ -265,6 +228,7 @@ export const products: Product[] = [
     category: "fruits",
     description: "Air-freighted mangoes for peak aroma and silky texture.",
     image: productImg("fr-mango-by-air"),
+    featured: true,
   },
   {
     id: "fr-grapes",
@@ -289,9 +253,10 @@ export const products: Product[] = [
     category: "fruits",
     description: "Heavy, resonant melons — cut-to-order programmes available.",
     image: productImg("fr-watermelon"),
+    featured: true,
   },
 
-  // Herbs
+  // Herbs & Speciality Products
   {
     id: "hb-coriander",
     name: "Coriander",
@@ -299,6 +264,7 @@ export const products: Product[] = [
     category: "herbs",
     description: "Bunched coriander with intense aroma for finishing.",
     image: productImg("hb-coriander"),
+    featured: true,
   },
   {
     id: "hb-mint",
@@ -307,6 +273,7 @@ export const products: Product[] = [
     category: "herbs",
     description: "Peppermint-forward bunches for drinks and desserts.",
     image: productImg("hb-mint"),
+    featured: true,
   },
   {
     id: "hb-spinach",
@@ -332,237 +299,23 @@ export const products: Product[] = [
     description: "Feathery dill for seafood, pickles, and sauces.",
     image: productImg("hb-dill"),
   },
-
-  // Exotic
-  {
-    id: "ex-cassava",
-    name: "Cassava",
-    price: "£38",
-    category: "exotic",
-    description: "Clean-peeled cassava — ideal for boiling, frying, and wholesale prep.",
-    image: productImg("ex-cassava"),
-  },
-  {
-    id: "ex-white-yam",
-    name: "White Yam",
-    price: "£40",
-    category: "exotic",
-    description: "Dense white yam — premium staple for international menus.",
-    image: productImg("ex-white-yam"),
-  },
-  {
-    id: "ex-plantain",
-    name: "Plantain",
-    price: "£30–38",
-    category: "exotic",
-    description: "Sizing grades available — perfect for fry programmes.",
-    image: productImg("ex-plantain"),
-  },
-  {
-    id: "ex-eddoes",
-    name: "Eddoes",
-    price: "£28",
-    category: "exotic",
-    description: "Small, nutty eddoes — excellent for stews and Caribbean dishes.",
-    image: productImg("ex-eddoes"),
-  },
-  {
-    id: "ex-matoki",
-    name: "Matoki",
-    price: "£22",
-    category: "exotic",
-    description: "Green cooking bananas — staple for East African kitchens.",
-    image: productImg("ex-matoki"),
-  },
-
-  // Frozen (branded)
-  {
-    id: "fz-paratha",
-    name: "Paratha",
-    price: "POA",
-    category: "frozen",
-    brand: "Rupa",
-    description: "Layered paratha with reliable puff and separation.",
-    image: productImg("fz-paratha"),
-  },
-  {
-    id: "fz-naan",
-    name: "Naan",
-    price: "POA",
-    category: "frozen",
-    brand: "Shana",
-    description: "Freezer-to-oven naan with even blistering.",
-    image: productImg("fz-naan"),
-  },
-  {
-    id: "fz-samosa",
-    name: "Samosa",
-    price: "POA",
-    category: "frozen",
-    brand: "Taj",
-    description: "Crisp pastry, well-spiced fillings — consistent fry performance.",
-    image: productImg("fz-samosa"),
-  },
-  {
-    id: "fz-okra",
-    name: "Frozen Okra",
-    price: "POA",
-    category: "frozen",
-    brand: "Shana",
-    description: "Whole okra that holds shape through cooking.",
-    image: productImg("fz-okra"),
-  },
-  {
-    id: "fz-spinach",
-    name: "Frozen Spinach",
-    price: "POA",
-    category: "frozen",
-    brand: "Rupa",
-    description: "Blanched spinach for curries, fillings, and retail.",
-    image: productImg("fz-spinach"),
-  },
-  {
-    id: "fz-mogo",
-    name: "Mogo Chips",
-    price: "POA",
-    category: "frozen",
-    brand: "Taj",
-    description: "Casava chips with crisp exteriors and fluffy centres.",
-    image: productImg("fz-mogo"),
-  },
-  {
-    id: "fz-patra",
-    name: "Patra",
-    price: "POA",
-    category: "frozen",
-    brand: "Shana",
-    description: "Layered patra rolls for snack and buffet programmes.",
-    image: productImg("fz-patra"),
-  },
-  {
-    id: "fz-kachori",
-    name: "Kachori",
-    price: "POA",
-    category: "frozen",
-    brand: "Rupa",
-    description: "Spiced kachori — ideal for catering and grab-and-go.",
-    image: productImg("fz-kachori"),
-  },
-
-  // Snacks
-  {
-    id: "sn-kurkure",
-    name: "Kurkure",
-    price: "POA",
-    category: "snacks",
-    description: "Retail-ready crisps — high velocity on multicultural shelves.",
-    image: productImg("sn-kurkure"),
-  },
-  {
-    id: "sn-lays",
-    name: "Lays",
-    price: "POA",
-    category: "snacks",
-    description: "Classic Lay’s lines for impulse and meal deals.",
-    image: productImg("sn-lays"),
-  },
-  {
-    id: "sn-maggi",
-    name: "Maggi",
-    price: "POA",
-    category: "snacks",
-    description: "Noodles and seasonings for fast-moving grocery.",
-    image: productImg("sn-maggi"),
-  },
-  {
-    id: "sn-parle-g",
-    name: "Parle G",
-    price: "POA",
-    category: "snacks",
-    description: "Biscuit packs with strong repeat purchase.",
-    image: productImg("sn-parle-g"),
-  },
-  {
-    id: "sn-chaat-puri",
-    name: "Chaat Puri",
-    price: "POA",
-    category: "snacks",
-    description: "Crisp puri shells for chaat counters and events.",
-    image: productImg("sn-chaat-puri"),
-  },
-  {
-    id: "sn-pani-puri",
-    name: "Pani Puri",
-    price: "POA",
-    category: "snacks",
-    description: "Ready-to-fill shells — pair with spiced waters.",
-    image: productImg("sn-pani-puri"),
-  },
-
-  // Drinks
-  {
-    id: "dr-frooti",
-    name: "Frooti",
-    price: "POA",
-    category: "drinks",
-    description: "Mango drink — chilled retail favourite.",
-    image: productImg("dr-frooti"),
-  },
-  {
-    id: "dr-maaza",
-    name: "Maaza",
-    price: "POA",
-    category: "drinks",
-    description: "Mango beverage with smooth mouthfeel.",
-    image: productImg("dr-maaza"),
-  },
-  {
-    id: "dr-thumbs-up",
-    name: "Thumbs Up",
-    price: "POA",
-    category: "drinks",
-    description: "Bold cola profile for takeaway and retail.",
-    image: productImg("dr-thumbs-up"),
-  },
-  {
-    id: "dr-limca",
-    name: "Limca",
-    price: "POA",
-    category: "drinks",
-    description: "Lime-lemon sparkle — perfect for chilled sets.",
-    image: productImg("dr-limca"),
-  },
-  {
-    id: "dr-mirinda",
-    name: "Mirinda",
-    price: "POA",
-    category: "drinks",
-    description: "Fruit-forward soda for vibrant cold displays.",
-    image: productImg("dr-mirinda"),
-  },
 ];
 
 export const categoryLabels: Record<ProductCategory, string> = {
-  vegetables: "Fresh Vegetables",
-  fruits: "Fresh Fruits",
-  exotic: "Exotic Produce",
-  frozen: "Frozen Foods",
-  herbs: "Herbs & Greens",
-  snacks: "Snacks & Grocery",
-  drinks: "Drinks",
+  vegetables: "Vegetables & Fresh Produce",
+  fruits: "Fruits",
+  herbs: "Herbs & Speciality Products",
 };
 
-export const allCategories: ProductCategory[] = [
-  "vegetables",
-  "fruits",
-  "exotic",
-  "frozen",
-  "herbs",
-  "snacks",
-  "drinks",
-];
+export const allCategories: ProductCategory[] = ["vegetables", "fruits", "herbs"];
 
 export function getProductsByCategory(category: ProductCategory | "all") {
   if (category === "all") return products;
   return products.filter((p) => p.category === category);
 }
+
+export function getCategoryCount(category: ProductCategory) {
+  return products.filter((p) => p.category === category).length;
+}
+
+export const featuredProducts = products.filter((p) => p.featured);

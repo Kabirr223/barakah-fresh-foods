@@ -8,20 +8,17 @@ import {
   useTransform,
 } from "framer-motion";
 import type { MotionValue } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, Check } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { FruitDecorations } from "@/components/decor/fruit-outlines";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
 import { useCatalog } from "@/context/catalog-context";
-import { products } from "@/data/products";
-import { localImage } from "@/lib/image-catalog";
-
-const floaters = [
-  { src: localImage("tomatoes"), label: "Tomatoes", className: "left-[6%] top-[18%] w-24 sm:w-32" },
-  { src: localImage("fruitMix"), label: "Citrus", className: "right-[8%] top-[22%] w-28 sm:w-36" },
-  { src: localImage("vegGreens"), label: "Greens", className: "left-[12%] bottom-[18%] w-24 sm:w-30" },
-  { src: localImage("bananas"), label: "Tropical", className: "right-[14%] bottom-[20%] w-28 sm:w-36" },
+const trustBadges = [
+  "Fresh Daily Stock",
+  "Wholesale Supply",
+  "Quality Produce",
+  "Reliable Service",
 ];
 
 function useCountUp(target: number, durationMs = 1600) {
@@ -55,15 +52,11 @@ export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const spotlight = useMotionTemplate`radial-gradient(520px circle at ${mx}px ${my}px, oklch(0.72 0.17 55 / 0.18), transparent 65%)`;
+  const spotlight = useMotionTemplate`radial-gradient(520px circle at ${mx}px ${my}px, rgba(198, 168, 106, 0.15), transparent 65%)`;
 
-  const lines = products.length;
-  const skus = 120;
-  const clients = 480;
-
-  const linesSpring = useCountUp(lines);
-  const skusSpring = useCountUp(skus);
-  const clientsSpring = useCountUp(clients);
+  const productsCount = useCountUp(31);
+  const yearsCount = useCountUp(15);
+  const clientsCount = useCountUp(200);
 
   useEffect(() => {
     const el = ref.current;
@@ -81,168 +74,140 @@ export function HeroSection() {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-[100svh] overflow-hidden scroll-mt-24"
+      className="relative flex min-h-[100svh] items-center overflow-hidden scroll-mt-24"
     >
-      <div className="absolute inset-0 bg-mesh" />
+      <div className="absolute inset-0 bg-luxury-mesh" />
+      <FruitDecorations />
       <motion.div
-        className="pointer-events-none absolute inset-0 mix-blend-screen dark:mix-blend-normal"
+        className="pointer-events-none absolute inset-0"
         style={{ background: spotlight }}
       />
+      <div className="absolute inset-0 bg-linear-to-b from-bf-charcoal/40 via-transparent to-bf-charcoal" />
 
-      <div className="absolute inset-0 bg-linear-to-b from-background/25 via-transparent to-background" />
-
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-4 pb-24 pt-28 sm:px-6 lg:flex-row lg:items-center lg:gap-16 lg:px-8 lg:pb-32 lg:pt-32">
-        <div className="relative z-10 max-w-2xl flex-1">
+      <div className="relative mx-auto w-full max-w-7xl px-4 py-32 sm:px-6 lg:px-8 lg:py-40">
+        <div className="mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+            className="inline-flex items-center gap-2 rounded-full border border-bf-gold/30 bg-bf-gold/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-bf-gold"
           >
-            <Sparkles className="size-3.5" />
-            Leicester wholesale · Daily replenishment
+            Premium Wholesale · Leicester
           </motion.div>
 
           <motion.h1
-            className="mt-6 font-heading text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+            className="mt-8 font-heading text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-7xl"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
           >
-            Premium fresh produce{" "}
-            <span className="text-gradient-brand">delivered daily</span>
+            Fresh Wholesale{" "}
+            <span className="text-gradient-gold">Fruit &amp; Vegetables</span>
           </motion.h1>
 
           <motion.p
-            className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.12 }}
           >
-            Wholesale fruit, vegetables, exotic produce, frozen foods, and
-            groceries supplied to restaurants, retailers, caterers, and businesses
-            across Leicester and Leicestershire.
+            Supplying quality fresh produce to restaurants, takeaways, caterers,
+            retailers and businesses throughout Leicester.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18 }}
           >
-            <Button
-              size="lg"
-              className="h-12 rounded-full px-7 text-base shadow-lg shadow-primary/25"
+            <MagneticButton
               onClick={() => {
                 setActiveCategory("all");
                 scrollTo("products");
               }}
+              className="inline-flex h-13 items-center gap-2 rounded-full bg-bf-leaf px-8 text-base font-semibold text-white shadow-lg shadow-bf-leaf/25"
             >
-              Explore products
+              Browse Products
               <ArrowRight className="size-4" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-12 rounded-full border-primary/25 px-7 text-base backdrop-blur-sm"
+            </MagneticButton>
+            <MagneticButton
               onClick={() => scrollTo("contact")}
+              className="inline-flex h-13 items-center gap-2 rounded-full border border-bf-gold/40 bg-bf-gold/10 px-8 text-base font-semibold text-bf-gold backdrop-blur-sm"
             >
-              Get wholesale pricing
-            </Button>
+              Contact Us
+            </MagneticButton>
           </motion.div>
 
-          <motion.dl
-            className="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-border/70 pt-8"
+          <motion.ul
+            className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            {trustBadges.map((badge, i) => (
+              <motion.li
+                key={badge}
+                className="flex items-center gap-2 text-sm text-white/80"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35 + i * 0.08 }}
+              >
+                <span className="flex size-5 items-center justify-center rounded-full bg-bf-leaf/20 text-bf-leaf">
+                  <Check className="size-3" strokeWidth={3} />
+                </span>
+                {badge}
+              </motion.li>
+            ))}
+          </motion.ul>
+
+          <motion.dl
+            className="mx-auto mt-16 grid max-w-lg grid-cols-3 gap-6 border-t border-bf-gold/20 pt-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.45, duration: 0.5 }}
           >
             <div>
-              <dt className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Catalogue lines
+              <dt className="text-[10px] font-medium uppercase tracking-wider text-bf-gold/70">
+                Products
               </dt>
-              <dd className="mt-1 font-heading text-2xl font-semibold tabular-nums sm:text-3xl">
-                <StatNumber mv={linesSpring} />+
+              <dd className="mt-1 font-heading text-2xl font-semibold tabular-nums text-white sm:text-3xl">
+                <StatNumber mv={productsCount} />+
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                SKUs managed
+              <dt className="text-[10px] font-medium uppercase tracking-wider text-bf-gold/70">
+                Years Serving
               </dt>
-              <dd className="mt-1 font-heading text-2xl font-semibold tabular-nums sm:text-3xl">
-                <StatNumber mv={skusSpring} />+
+              <dd className="mt-1 font-heading text-2xl font-semibold tabular-nums text-white sm:text-3xl">
+                <StatNumber mv={yearsCount} />+
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Partner sites
+              <dt className="text-[10px] font-medium uppercase tracking-wider text-bf-gold/70">
+                Business Clients
               </dt>
-              <dd className="mt-1 font-heading text-2xl font-semibold tabular-nums sm:text-3xl">
-                <StatNumber mv={clientsSpring} />+
+              <dd className="mt-1 font-heading text-2xl font-semibold tabular-nums text-white sm:text-3xl">
+                <StatNumber mv={clientsCount} />+
               </dd>
             </div>
           </motion.dl>
         </div>
-
-        <div className="relative z-10 mt-4 flex flex-1 justify-center lg:mt-0 lg:justify-end">
-          <div className="relative aspect-square w-full max-w-md">
-            <motion.div
-              className="absolute inset-6 rounded-[2rem] bg-linear-to-br from-primary/25 via-accent/15 to-bf-lime/20 blur-3xl"
-              animate={{ scale: [1, 1.05, 1], opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="glass-panel relative overflow-hidden rounded-[2rem] ring-1 ring-white/30"
-              initial={{ opacity: 0, y: 30, rotate: -2 }}
-              animate={{ opacity: 1, y: 0, rotate: 0 }}
-              transition={{ type: "spring", stiffness: 120, damping: 18 }}
-            >
-              <div className="relative aspect-[4/5] w-full">
-                <Image
-                  src={localImage("market")}
-                  alt="Premium wholesale produce display"
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 480px"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 rounded-2xl border border-white/20 bg-black/35 p-3 text-white backdrop-blur-md">
-                  <div>
-                    <p className="text-xs text-white/80">Cold chain confidence</p>
-                    <p className="text-sm font-semibold">Dispatch from 4am</p>
-                  </div>
-                  <div className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium ring-1 ring-white/25">
-                    BRC-minded ops
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {floaters.map((f, i) => (
-              <motion.div
-                key={f.src}
-                className={`glass-panel absolute ${f.className} overflow-hidden rounded-2xl shadow-xl ring-1 ring-white/25`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 + i * 0.08, duration: 0.5 }}
-                style={{ rotate: i % 2 === 0 ? -4 : 5 }}
-                whileHover={{ scale: 1.04, rotate: 0 }}
-              >
-                <div className="relative aspect-square w-full">
-                  <Image
-                    src={f.src}
-                    alt={f.label}
-                    fill
-                    className="object-cover"
-                    sizes="160px"
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </div>
+
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="h-10 w-6 rounded-full border-2 border-bf-gold/40 p-1">
+          <motion.div
+            className="mx-auto h-2 w-1 rounded-full bg-bf-gold"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

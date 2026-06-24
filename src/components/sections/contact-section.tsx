@@ -2,15 +2,17 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { siteConfig } from "@/config/site";
+import { getWhatsAppOrderUrl, siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name."),
@@ -35,79 +37,126 @@ export function ContactSection() {
   });
 
   const onSubmit = (data: FormValues) => {
-    toast.success("Thanks — your enquiry is ready to send.", {
-      description:
-        "Connect this form to your CRM or email API. Validation passed for " +
-        data.company +
-        ".",
+    const subject = encodeURIComponent(
+      `Wholesale Enquiry from ${data.company}`,
+    );
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nCompany: ${data.company}\nPhone: ${data.phone}\nEmail: ${data.email}\n\n${data.message}`,
+    );
+    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+    toast.success("Opening your email client…", {
+      description: "Your enquiry is ready to send.",
     });
     form.reset();
   };
 
   return (
-    <section id="contact" className="scroll-mt-28 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Contact
-            </p>
-            <h2 className="mt-2 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-              Let&apos;s plan your next{" "}
-              <span className="text-gradient-brand">fresh intake</span>
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Share your categories, weekly volumes, and delivery windows — an
-              account coordinator will respond with live availability.
-            </p>
+    <section id="contact" className="relative scroll-mt-28 py-24 sm:py-32">
+      <div className="absolute inset-0 bg-luxury-mesh opacity-30" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mx-auto max-w-2xl text-center"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-bf-gold">
+            Contact
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Get in touch for{" "}
+            <span className="text-gradient-gold">wholesale prices</span>
+          </h2>
+        </motion.div>
 
-            <ul className="mt-10 space-y-5 text-sm">
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
-                <span>
-                  <span className="font-medium text-foreground">Visit / post</span>
-                  <br />
+        <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-panel-gold rounded-3xl p-8"
+          >
+            <h3 className="font-heading text-xl font-semibold text-white">
+              {siteConfig.name}
+            </h3>
+            <ul className="mt-8 space-y-6 text-sm">
+              <li className="flex gap-4">
+                <MapPin className="mt-0.5 size-5 shrink-0 text-bf-gold" />
+                <span className="text-white/80">
                   {siteConfig.addressLine1}
                   <br />
-                  {siteConfig.addressLine2}, {siteConfig.country}
+                  {siteConfig.addressLine2}
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="size-5 text-primary" />
+              <li className="flex items-center gap-4">
+                <Phone className="size-5 text-bf-gold" />
                 <a
-                  className="font-medium hover:text-primary"
-                  href={`tel:${siteConfig.phoneE164.replace(/\s/g, "")}`}
+                  className="font-medium text-white hover:text-bf-gold"
+                  href={`tel:${siteConfig.phoneE164}`}
                 >
                   {siteConfig.phoneDisplay}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="size-5 text-primary" />
+              <li className="flex items-center gap-4">
+                <Mail className="size-5 text-bf-gold" />
                 <a
-                  className="font-medium hover:text-primary"
+                  className="font-medium text-white hover:text-bf-gold"
                   href={`mailto:${siteConfig.email}`}
                 >
                   {siteConfig.email}
                 </a>
               </li>
-              <li className="flex gap-3">
-                <Clock className="mt-0.5 size-5 shrink-0 text-primary" />
-                <span>
-                  <span className="font-medium text-foreground">Hours</span>
-                  <br />
+              <li className="flex gap-4">
+                <Clock className="mt-0.5 size-5 shrink-0 text-bf-gold" />
+                <span className="text-white/80">
                   {siteConfig.hours.weekdays}
                   <br />
                   {siteConfig.hours.sunday}
                 </span>
               </li>
             </ul>
-          </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={`tel:${siteConfig.phoneE164}`}
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "rounded-full border-bf-gold/30 text-bf-gold",
+                )}
+              >
+                <Phone className="size-4" />
+                Click to Call
+              </a>
+              <Link
+                href={getWhatsAppOrderUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants(),
+                  "rounded-full bg-[#25D366] hover:bg-[#20bd5a]",
+                )}
+              >
+                <MessageCircle className="size-4" />
+                WhatsApp
+              </Link>
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "rounded-full border-bf-gold/30 text-bf-gold",
+                )}
+              >
+                <Mail className="size-4" />
+                Email
+              </a>
+            </div>
+          </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="glass-panel rounded-[2rem] border border-white/20 p-6 shadow-xl sm:p-8"
+            className="glass-panel rounded-3xl p-6 sm:p-8"
           >
             <form
               className="space-y-4"
@@ -116,19 +165,32 @@ export function ContactSection() {
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" {...form.register("name")} />
+                  <Label htmlFor="name" className="text-white/80">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    className="border-bf-gold/20 bg-white/5 text-white"
+                    {...form.register("name")}
+                  />
                   {form.formState.errors.name ? (
-                    <p className="text-xs text-destructive">
+                    <p className="text-xs text-red-400">
                       {form.formState.errors.name.message}
                     </p>
                   ) : null}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" {...form.register("email")} />
+                  <Label htmlFor="email" className="text-white/80">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    className="border-bf-gold/20 bg-white/5 text-white"
+                    {...form.register("email")}
+                  />
                   {form.formState.errors.email ? (
-                    <p className="text-xs text-destructive">
+                    <p className="text-xs text-red-400">
                       {form.formState.errors.email.message}
                     </p>
                   ) : null}
@@ -136,44 +198,58 @@ export function ContactSection() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="company">Business</Label>
-                  <Input id="company" {...form.register("company")} />
+                  <Label htmlFor="company" className="text-white/80">
+                    Business
+                  </Label>
+                  <Input
+                    id="company"
+                    className="border-bf-gold/20 bg-white/5 text-white"
+                    {...form.register("company")}
+                  />
                   {form.formState.errors.company ? (
-                    <p className="text-xs text-destructive">
+                    <p className="text-xs text-red-400">
                       {form.formState.errors.company.message}
                     </p>
                   ) : null}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" {...form.register("phone")} />
+                  <Label htmlFor="phone" className="text-white/80">
+                    Phone
+                  </Label>
+                  <Input
+                    id="phone"
+                    className="border-bf-gold/20 bg-white/5 text-white"
+                    {...form.register("phone")}
+                  />
                   {form.formState.errors.phone ? (
-                    <p className="text-xs text-destructive">
+                    <p className="text-xs text-red-400">
                       {form.formState.errors.phone.message}
                     </p>
                   ) : null}
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="message">What do you need?</Label>
+                <Label htmlFor="message" className="text-white/80">
+                  What do you need?
+                </Label>
                 <Textarea
                   id="message"
                   rows={4}
-                  className="resize-none"
+                  className="resize-none border-bf-gold/20 bg-white/5 text-white"
                   {...form.register("message")}
                 />
                 {form.formState.errors.message ? (
-                  <p className="text-xs text-destructive">
+                  <p className="text-xs text-red-400">
                     {form.formState.errors.message.message}
                   </p>
                 ) : null}
               </div>
               <Button
                 type="submit"
-                className="w-full rounded-full py-6 text-base shadow-lg shadow-primary/25"
+                className="w-full rounded-full bg-bf-gold py-6 text-base font-semibold text-bf-charcoal hover:bg-bf-gold/90"
                 disabled={form.formState.isSubmitting}
               >
-                Send enquiry
+                Send Enquiry
               </Button>
             </form>
           </motion.div>
@@ -183,13 +259,13 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-14 overflow-hidden rounded-[2rem] border border-border/80 bg-muted/30 shadow-inner"
+          className="mt-14 overflow-hidden rounded-3xl border border-bf-gold/20 shadow-xl"
         >
           <div className="aspect-[21/9] min-h-[220px] w-full sm:min-h-[280px]">
             <iframe
               title="Barakah Fresh Foods location map"
               src={siteConfig.mapEmbedUrl}
-              className="size-full border-0"
+              className="size-full border-0 grayscale-[30%] contrast-[1.1]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen

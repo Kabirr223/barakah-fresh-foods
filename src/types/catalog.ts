@@ -1,11 +1,4 @@
-export type ProductCategory =
-  | "vegetables"
-  | "fruits"
-  | "exotic"
-  | "frozen"
-  | "herbs"
-  | "snacks"
-  | "drinks";
+export type ProductCategory = "vegetables" | "fruits" | "herbs";
 
 export interface Product {
   id: string;
@@ -14,8 +7,7 @@ export interface Product {
   category: ProductCategory;
   description: string;
   image: string;
-  /** Frozen brand lines */
-  brand?: "Rupa" | "Shana" | "Taj";
+  featured?: boolean;
 }
 
 export interface CategoryMeta {
@@ -23,4 +15,5 @@ export interface CategoryMeta {
   title: string;
   subtitle: string;
   image: string;
+  icon: "vegetables" | "fruits" | "herbs";
 }

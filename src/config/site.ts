@@ -1,28 +1,24 @@
 export const siteConfig = {
   name: "Barakah Fresh Foods",
-  tagline: "Premium Fresh Produce Delivered Daily",
+  tagline: "Fresh Wholesale Fruit & Vegetables",
   description:
-    "Wholesale fruit, vegetables, exotic produce, frozen foods, and groceries supplied to restaurants, retailers, caterers, and businesses across Leicester and Leicestershire.",
+    "Premium wholesale fruit and vegetables supplied to restaurants, takeaways, caterers, retailers and businesses throughout Leicester. Fresh daily stock, competitive pricing, and reliable service.",
   url: "https://www.barakahfreshfoods.co.uk",
-  email: "orders@barakahfreshfoods.co.uk",
-  phoneDisplay: "+44 (0) 116 123 4567",
-  phoneE164: "+441161234567",
-  addressLine1: "Unit 8, Leicester Wholesale Market",
-  addressLine2: "Leicester, LE1 2TE",
+  email: "Barakahfreshfoods@gmail.com",
+  phoneDisplay: "073425 89538",
+  phoneE164: "+447342589538",
+  addressLine1: "47A Myrtle Road",
+  addressLine2: "Leicester, LE2 1FX",
   country: "United Kingdom",
   region: "Leicester",
+  orderDeadline: "8PM",
   /** Digits only, no + — used with https://wa.me/ */
-  whatsappE164Digits: "4471161234567",
+  whatsappE164Digits: "447342589538",
   mapEmbedUrl:
-    "https://www.google.com/maps?q=Leicester+Wholesale+Market+LE1+2TE&output=embed&z=15",
+    "https://www.google.com/maps?q=47A+Myrtle+Road+Leicester+LE2+1FX&output=embed&z=16",
   hours: {
-    weekdays: "Mon–Sat: 4:00–20:00",
+    weekdays: "Mon–Sat: 6:00–20:00",
     sunday: "Sun: Closed",
-  },
-  social: {
-    instagram: "https://www.instagram.com/",
-    linkedin: "https://www.linkedin.com/",
-    facebook: "https://www.facebook.com/",
   },
 } as const;
 
@@ -30,7 +26,7 @@ export function getWhatsAppOrderUrl(prefill?: string) {
   const base = `https://wa.me/${siteConfig.whatsappE164Digits}`;
   const text =
     prefill ??
-    "Hello Barakah Fresh Foods, I would like a wholesale order / price list.";
+    "Hello Barakah Fresh Foods, I would like to place a wholesale order / request prices.";
   return `${base}?text=${encodeURIComponent(text)}`;
 }
 

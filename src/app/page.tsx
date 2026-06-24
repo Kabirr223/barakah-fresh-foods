@@ -1,27 +1,20 @@
-import { CategoryShowcase } from "@/components/sections/category-showcase";
-import { ClientsSection } from "@/components/sections/clients-section";
+import { AboutSection } from "@/components/sections/about-section";
 import { ContactSection } from "@/components/sections/contact-section";
-import { CtaSection } from "@/components/sections/cta-section";
-import { ExperienceSection } from "@/components/sections/experience-section";
 import { HeroSection } from "@/components/sections/hero-section";
+import { OrderReminderSection } from "@/components/sections/order-reminder-section";
 import { ProductsCatalog } from "@/components/sections/products-catalog";
-import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import { TrustMarquee } from "@/components/sections/trust-marquee";
+import { WholesaleProcess } from "@/components/sections/wholesale-process";
 import { WhyBarakah } from "@/components/sections/why-barakah";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <TrustMarquee />
-      <CategoryShowcase />
       <ProductsCatalog />
+      <AboutSection />
       <WhyBarakah />
-      <ExperienceSection />
-      <ClientsSection />
-      <TrustMarquee />
-      <TestimonialsSection />
-      <CtaSection />
+      <WholesaleProcess />
+      <OrderReminderSection />
       <ContactSection />
     </>
   );

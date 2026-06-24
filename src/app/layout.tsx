@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "@/components/providers/app-providers";
 import { CursorGlow } from "@/components/layout/cursor-glow";
@@ -17,9 +17,10 @@ const bodySans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const displaySerif = Fraunces({
+const displaySerif = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -32,16 +33,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Premium Wholesale Produce Leicester`,
+    default: `${siteConfig.name} | Wholesale Fruit & Vegetable Supplier Leicester`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "wholesale produce Leicester",
-    "fresh fruit and vegetables wholesale Leicester",
-    "exotic produce supplier Leicester",
-    "frozen foods wholesale Leicester",
+    "Wholesale Fruit Supplier Leicester",
+    "Wholesale Vegetables Leicester",
+    "Fresh Produce Leicester",
+    "Fruit & Vegetable Wholesaler Leicester",
     "Barakah Fresh Foods",
+    "wholesale produce Leicester",
+    "fresh fruit wholesale Leicester",
+    "vegetable supplier Leicester",
   ],
   authors: [{ name: siteConfig.name }],
   openGraph: {
@@ -49,22 +53,19 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | Premium Wholesale Produce`,
+    title: `${siteConfig.name} | Premium Wholesale Produce Leicester`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | Premium Wholesale Produce`,
+    title: `${siteConfig.name} | Premium Wholesale Produce Leicester`,
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f7f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0f12" },
-  ],
+  themeColor: "#2F3A37",
 };
 
 export default function RootLayout({
@@ -73,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" suppressHydrationWarning>
+    <html lang="en-GB" className="dark">
       <body
         className={`${bodySans.variable} ${displaySerif.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}
       >

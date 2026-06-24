@@ -1,24 +1,19 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { Leaf, Menu, MessageCircle, X } from "lucide-react";
-import Link from "next/link";
+import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { cn } from "@/lib/utils";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
-import { siteConfig, getWhatsAppOrderUrl } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { useActiveSection, type SectionId } from "@/hooks/use-active-section";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const links: { id: SectionId; label: string }[] = [
   { id: "hero", label: "Home" },
-  { id: "categories", label: "Range" },
   { id: "products", label: "Products" },
-  { id: "why", label: "Why Us" },
-  { id: "experience", label: "Experience" },
-  { id: "clients", label: "Clients" },
-  { id: "testimonials", label: "Stories" },
+  { id: "about", label: "About" },
+  { id: "why", label: "Why Choose Us" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -26,6 +21,12 @@ export function SiteHeader() {
   const { scrollTo } = useLenisScroll();
   const active = useActiveSection();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setScrolled(v > 40);
+  });
 
   const go = (id: SectionId) => {
     scrollTo(id);
@@ -35,54 +36,59 @@ export function SiteHeader() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
-        <div className="mx-auto max-w-7xl px-4 pt-3 sm:px-6 lg:px-8">
-          <div
+        <motion.div
+          className={cn(
+            "mx-auto max-w-7xl px-4 pt-4 transition-all sm:px-6 lg:px-8",
+            scrolled && "pt-2",
+          )}
+          animate={{ paddingTop: scrolled ? 8 : 16 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div
             className={cn(
-              "glass-panel flex items-center justify-between gap-3 rounded-2xl px-3 py-2.5 sm:px-4",
-              "border-white/20 dark:border-white/10",
+              "flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-all duration-300 sm:px-5",
+              scrolled
+                ? "glass-panel-gold border-bf-gold/20 shadow-lg"
+                : "bg-transparent",
             )}
+            layout
           >
             <button
               type="button"
               onClick={() => go("hero")}
-              className="group flex items-center gap-2 rounded-xl px-1 py-1 text-left transition-transform active:scale-[0.98]"
+              className="group flex items-center gap-3 text-left"
             >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-primary/15 text-primary ring-1 ring-primary/25">
-                <Leaf className="size-5" aria-hidden />
+              <span className="flex size-10 items-center justify-center rounded-xl border border-bf-gold/30 bg-bf-gold/10">
+                <span className="font-heading text-lg font-bold text-bf-gold">B</span>
               </span>
               <span className="leading-tight">
-                <span className="block font-heading text-sm font-semibold tracking-tight sm:text-base">
+                <span className="block font-heading text-sm font-semibold tracking-wide text-white sm:text-base">
                   {siteConfig.name}
                 </span>
-                <span className="hidden text-[11px] text-muted-foreground sm:block">
+                <span className="hidden text-[10px] uppercase tracking-[0.15em] text-bf-gold/80 sm:block">
                   Wholesale · Leicester
                 </span>
               </span>
             </button>
 
-            <nav
-              className="hidden items-center gap-0.5 lg:flex"
-              aria-label="Primary"
-            >
+            <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
               {links.map((l) => (
                 <button
                   key={l.id}
                   type="button"
                   onClick={() => go(l.id)}
                   className={cn(
-                    "relative rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
-                    active === l.id && "text-foreground",
+                    "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    active === l.id
+                      ? "text-bf-gold"
+                      : "text-white/70 hover:text-white",
                   )}
                 >
                   {active === l.id ? (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-foreground/10 ring-1 ring-foreground/10"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 32,
-                      }}
+                      className="absolute inset-0 -z-10 rounded-full bg-bf-gold/10 ring-1 ring-bf-gold/25"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   ) : null}
                   {l.label}
@@ -90,44 +96,24 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <ThemeToggle />
-              <Link
-                href={getWhatsAppOrderUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                    size: "sm",
-                  }),
-                  "hidden rounded-full border-primary/25 sm:inline-flex",
-                )}
-              >
-                <MessageCircle className="size-3.5" />
-                WhatsApp
-              </Link>
-              <Button
-                type="button"
-                size="sm"
-                className="hidden rounded-full bg-primary text-primary-foreground shadow-md shadow-primary/25 md:inline-flex"
+            <div className="flex items-center gap-2">
+              <MagneticButton
                 onClick={() => go("contact")}
+                className="hidden h-10 items-center gap-2 rounded-full bg-bf-gold px-5 text-sm font-semibold text-bf-charcoal shadow-lg shadow-bf-gold/20 md:inline-flex"
               >
-                Enquire
-              </Button>
-              <Button
+                Get Wholesale Prices
+              </MagneticButton>
+              <button
                 type="button"
-                size="icon"
-                variant="ghost"
-                className="rounded-full lg:hidden"
+                className="flex size-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
                 aria-label={open ? "Close menu" : "Open menu"}
                 onClick={() => setOpen((v) => !v)}
               >
                 {open ? <X className="size-5" /> : <Menu className="size-5" />}
-              </Button>
+              </button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </header>
 
       <AnimatePresence>
@@ -140,8 +126,8 @@ export function SiteHeader() {
           >
             <button
               type="button"
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-              aria-label="Close menu overlay"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              aria-label="Close menu"
               onClick={() => setOpen(false)}
             />
             <motion.nav
@@ -149,7 +135,7 @@ export function SiteHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="absolute right-0 top-0 flex h-full w-[min(100%,380px)] flex-col gap-2 border-l border-white/15 bg-background/95 p-6 pt-24 shadow-2xl backdrop-blur-xl"
+              className="absolute right-0 top-0 flex h-full w-[min(100%,360px)] flex-col gap-1 border-l border-bf-gold/20 bg-bf-charcoal/98 p-6 pt-24 backdrop-blur-xl"
               aria-label="Mobile primary"
             >
               {links.map((l, i) => (
@@ -161,36 +147,22 @@ export function SiteHeader() {
                   transition={{ delay: 0.04 * i }}
                   onClick={() => go(l.id)}
                   className={cn(
-                    "flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-base font-medium",
+                    "rounded-xl px-4 py-3.5 text-left text-base font-medium",
                     active === l.id
-                      ? "bg-primary/15 text-primary"
-                      : "hover:bg-muted",
+                      ? "bg-bf-gold/15 text-bf-gold"
+                      : "text-white/80 hover:bg-white/5",
                   )}
                 >
                   {l.label}
-                  {active === l.id ? (
-                    <span className="size-2 rounded-full bg-primary" />
-                  ) : null}
                 </motion.button>
               ))}
-              <div className="mt-auto flex flex-col gap-2 border-t border-border pt-4">
-                <Button
-                  className="w-full rounded-xl"
-                  onClick={() => go("products")}
+              <div className="mt-auto border-t border-bf-gold/20 pt-4">
+                <MagneticButton
+                  onClick={() => go("contact")}
+                  className="flex h-12 w-full items-center justify-center rounded-full bg-bf-gold text-sm font-semibold text-bf-charcoal"
                 >
-                  Explore products
-                </Button>
-                <Link
-                  href={getWhatsAppOrderUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    buttonVariants({ variant: "outline" }),
-                    "w-full rounded-xl",
-                  )}
-                >
-                  WhatsApp orders
-                </Link>
+                  Get Wholesale Prices
+                </MagneticButton>
               </div>
             </motion.nav>
           </motion.div>

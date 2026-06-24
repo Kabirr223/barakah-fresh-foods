@@ -13,28 +13,15 @@ export function JsonLd() {
       "@type": "PostalAddress",
       streetAddress: siteConfig.addressLine1,
       addressLocality: "Leicester",
-      postalCode: "LE1 2TE",
+      postalCode: "LE2 1FX",
       addressCountry: siteConfig.country,
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "04:00",
-        closes: "20:00",
-      },
-    ],
     areaServed: {
       "@type": "City",
       name: "Leicester",
     },
+    priceRange: "££",
+    servesCuisine: "Fresh Produce Wholesale",
   };
 
   return (
