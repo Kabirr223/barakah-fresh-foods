@@ -54,8 +54,26 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto flex justify-center"
           >
-            <Logo size="hero" />
+            <div className="relative">
+              <div className="pointer-events-none absolute -inset-4 rounded-full bg-bf-gold/20 blur-2xl" />
+              <Logo size="hero" showText={false} />
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="mt-6"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.12 }}
+          >
+            <h1 className="font-heading text-2xl font-semibold tracking-wide text-white sm:text-3xl">
+              {siteConfig.name}
+            </h1>
+            <p className="mt-1 text-base text-bf-gold/90 sm:text-lg">
+              {siteConfig.tagline}
+            </p>
           </motion.div>
 
           <motion.div

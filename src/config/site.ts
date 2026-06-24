@@ -23,6 +23,7 @@ export const siteConfig = {
     weekdays: "Mon–Sat: 6:00–20:00",
     sunday: "Sun: Closed",
   },
+  logo: "/images/barakah-logo.png",
   availabilityLabels: [
     "Contact For Availability",
     "Daily Stock Updates Available",

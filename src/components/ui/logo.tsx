@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
@@ -7,34 +8,60 @@ interface LogoProps {
   className?: string;
 }
 
-const sizes = {
-  sm: { box: "size-10 text-lg", name: "text-sm", tag: "text-[10px]" },
-  md: { box: "size-12 text-xl", name: "text-base", tag: "text-[10px]" },
-  lg: { box: "size-16 text-2xl", name: "text-lg", tag: "text-xs" },
-  hero: { box: "size-24 text-4xl sm:size-28 sm:text-5xl", name: "text-2xl sm:text-3xl", tag: "text-sm" },
+const imageSizes = {
+  sm: 40,
+  md: 48,
+  lg: 64,
+  hero: 256,
+};
+
+const containerClasses = {
+  sm: "size-10",
+  md: "size-12",
+  lg: "size-16",
+  hero: "size-48 sm:size-56 lg:size-64",
 };
 
 export function Logo({ size = "md", showText = true, className }: LogoProps) {
-  const s = sizes[size];
+  const px = imageSizes[size];
 
   return (
     <div className={cn("flex flex-col items-center gap-3 text-center", className)}>
       <span
         className={cn(
-          "flex items-center justify-center rounded-2xl border-2 border-bf-gold/40 bg-bf-gold/10 font-heading font-bold text-bf-gold shadow-lg shadow-bf-gold/15",
-          s.box,
+          "relative shrink-0 overflow-hidden rounded-full border-2 border-bf-gold/50 bg-white shadow-lg shadow-bf-gold/20 ring-2 ring-bf-gold/15",
+          containerClasses[size],
         )}
-        aria-hidden
       >
-        B
+        <Image
+          src={siteConfig.logo}
+          alt={`${siteConfig.name} logo`}
+          width={px}
+          height={px}
+          className="size-full object-cover"
+          priority={size === "hero"}
+          sizes={
+            size === "hero"
+              ? "(max-width: 640px) 192px, (max-width: 1024px) 224px, 256px"
+              : `${px}px`
+          }
+        />
       </span>
       {showText ? (
         <div>
-          <p className={cn("font-heading font-semibold tracking-wide text-white", s.name)}>
+          <p
+            className={cn(
+              "font-heading font-semibold tracking-wide text-white",
+              size === "sm" && "text-sm",
+              size === "md" && "text-base",
+              size === "lg" && "text-lg",
+              size === "hero" && "text-2xl sm:text-3xl",
+            )}
+          >
             {siteConfig.name}
           </p>
           {size === "hero" ? (
-            <p className={cn("mt-1 text-bf-gold/80", s.tag)}>
+            <p className="mt-1 text-sm text-bf-gold/80 sm:text-base">
               {siteConfig.tagline}
             </p>
           ) : null}

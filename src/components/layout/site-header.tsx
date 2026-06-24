@@ -4,10 +4,12 @@ import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
 import { useBanner } from "@/context/banner-context";
 import { useActiveSection, type SectionId } from "@/hooks/use-active-section";
+import { siteConfig } from "@/config/site";
 
 const links: { id: SectionId; label: string }[] = [
   { id: "hero", label: "Home" },
@@ -62,12 +64,10 @@ export function SiteHeader() {
               onClick={() => go("hero")}
               className="group flex items-center gap-3 text-left"
             >
-              <span className="flex size-10 items-center justify-center rounded-xl border border-bf-gold/30 bg-bf-gold/10">
-                <span className="font-heading text-lg font-bold text-bf-gold">B</span>
-              </span>
+              <Logo size="sm" showText={false} className="gap-0" />
               <span className="leading-tight">
                 <span className="block font-heading text-sm font-semibold tracking-wide text-white sm:text-base">
-                  Barakah Fresh Foods
+                  {siteConfig.name}
                 </span>
                 <span className="hidden text-[10px] uppercase tracking-[0.15em] text-bf-gold/80 sm:block">
                   Wholesale · Leicester

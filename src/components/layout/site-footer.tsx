@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "@/components/ui/logo";
 import { siteConfig, getWhatsAppOrderUrl } from "@/config/site";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
 import type { SectionId } from "@/hooks/use-active-section";
@@ -30,9 +31,7 @@ export function SiteFooter() {
           transition={{ duration: 0.5 }}
         >
           <div className="flex items-center gap-3">
-            <span className="flex size-11 items-center justify-center rounded-xl border border-bf-gold/30 bg-bf-gold/10">
-              <span className="font-heading text-xl font-bold text-bf-gold">B</span>
-            </span>
+            <Logo size="md" showText={false} className="gap-0" />
             <span className="font-heading text-xl font-semibold tracking-tight text-white">
               {siteConfig.name}
             </span>
