@@ -21,6 +21,7 @@ import {
   useState,
   useTransition,
 } from "react";
+import { CategoryStickyNav } from "@/components/sections/category-sticky-nav";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -31,10 +32,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { getWhatsAppProductUrl } from "@/config/site";
+import { ProductGridSkeleton } from "@/components/ui/product-skeleton";
+import { getAvailabilityLabel, getWhatsAppProductUrl } from "@/config/site";
 import { useCatalog } from "@/context/catalog-context";
 import {
   allCategories,
+  categoryDisplayCounts,
   categoryLabels,
   featuredProducts,
   getCategoryCount,
@@ -48,6 +51,10 @@ const categoryIcons: Record<ProductCategory, typeof Leaf> = {
   fruits: Apple,
   herbs: Leaf,
 };
+
+function availabilityForProduct(index: number) {
+  return getAvailabilityLabel(index);
+}
 
 export function ProductsCatalog() {
   const { activeCategory, setActiveCategory, search, setSearch } =
@@ -112,8 +119,8 @@ export function ProductsCatalog() {
               <span className="text-gradient-gold">fresh range</span>
             </h2>
             <p className="mt-3 max-w-xl text-sm text-white/60 sm:text-base">
-              Search, filter by category, and enquire on any line. Pricing shown
-              as a guide — final quotes depend on volume and seasonality.
+              Search, filter by category, and contact us for the latest
+              availability and daily stock updates.
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center lg:w-auto">
@@ -122,7 +129,7 @@ export function ProductsCatalog() {
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search products…"
+                placeholder="Search products instantly…"
                 className="h-11 rounded-full border-bf-gold/25 bg-white/5 pl-10 text-white placeholder:text-white/40"
                 aria-label="Search products"
               />
@@ -154,8 +161,9 @@ export function ProductsCatalog() {
           </div>
         </motion.div>
 
-        {/* Category tabs with expandable panels */}
-        <div className="mt-10 space-y-3">
+        <CategoryStickyNav />
+
+        <div className="mt-6 space-y-3">
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
@@ -189,7 +197,7 @@ export function ProductsCatalog() {
                   )}
                 >
                   <Icon className="size-4" />
-                  {categoryLabels[slug]} ({getCategoryCount(slug)})
+                  {categoryLabels[slug]} ({categoryDisplayCounts[slug]})
                   <ChevronDown
                     className={cn(
                       "size-3.5 transition-transform",
@@ -212,11 +220,12 @@ export function ProductsCatalog() {
               >
                 <div className="glass-panel rounded-2xl p-4">
                   <p className="text-sm text-white/60">
-                    Showing {getCategoryCount(expanded)} products in{" "}
+                    {categoryDisplayCounts[expanded]} lines in{" "}
                     <span className="font-medium text-bf-gold">
                       {categoryLabels[expanded]}
                     </span>
-                    . Use search to narrow results within this category.
+                    . Showing {getCategoryCount(expanded)} featured items —
+                    contact us for full daily stock list.
                   </p>
                 </div>
               </motion.div>
@@ -224,7 +233,6 @@ export function ProductsCatalog() {
           </AnimatePresence>
         </div>
 
-        {/* Featured products */}
         {activeCategory === "all" && !deferredSearch ? (
           <motion.div
             className="mt-12"
@@ -268,7 +276,7 @@ export function ProductsCatalog() {
                       {p.name}
                     </h4>
                     <p className="mt-1 text-sm font-medium text-bf-leaf">
-                      {p.price}
+                      {availabilityForProduct(i)}
                     </p>
                   </div>
                 </motion.button>
@@ -279,112 +287,118 @@ export function ProductsCatalog() {
 
         <div className="mt-6 flex items-center gap-2 text-xs text-white/50">
           <Sparkles className="size-3.5 text-bf-gold" />
-          {pending ? "Updating results…" : `${filtered.length} products`}
+          {pending ? "Updating results…" : `${filtered.length} products shown`}
         </div>
 
-        <motion.div
-          layout
-          className={cn(
-            "mt-8 gap-4",
-            view === "grid"
-              ? "grid sm:grid-cols-2 lg:grid-cols-3"
-              : "flex flex-col",
-          )}
-        >
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p) => (
-              <motion.article
-                layout
-                key={p.id}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.22 }}
-                whileHover={{ y: -4 }}
-                className={cn(
-                  "group overflow-hidden rounded-3xl border border-bf-gold/15 bg-white/[0.04] shadow-sm backdrop-blur-md",
-                  view === "list" && "flex flex-row items-stretch",
-                )}
-              >
-                <button
-                  type="button"
-                  onClick={() => setSelected(p)}
+        {pending ? (
+          <div className="mt-8">
+            <ProductGridSkeleton count={6} />
+          </div>
+        ) : (
+          <motion.div
+            layout
+            className={cn(
+              "mt-8 gap-4",
+              view === "grid"
+                ? "grid sm:grid-cols-2 lg:grid-cols-3"
+                : "flex flex-col",
+            )}
+          >
+            <AnimatePresence mode="popLayout">
+              {filtered.map((p, i) => (
+                <motion.article
+                  layout
+                  key={p.id}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.22 }}
+                  whileHover={{ y: -4 }}
                   className={cn(
-                    "relative block w-full text-left",
-                    view === "list" ? "flex flex-1 flex-row gap-4 p-3" : "",
+                    "group overflow-hidden rounded-3xl border border-bf-gold/15 bg-white/[0.04] shadow-sm backdrop-blur-md",
+                    view === "list" && "flex flex-row items-stretch",
                   )}
                 >
-                  <div
-                    className={cn(
-                      "relative overflow-hidden bg-white/5",
-                      view === "grid"
-                        ? "aspect-[5/4]"
-                        : "aspect-square w-36 shrink-0 rounded-2xl sm:w-44",
-                    )}
-                  >
-                    <Image
-                      src={p.image}
-                      alt=""
-                      fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                      sizes="(max-width:768px) 100vw, 33vw"
-                    />
-                    <div className="absolute left-3 top-3">
-                      <Badge className="rounded-full bg-bf-charcoal/80 text-white/90 backdrop-blur">
-                        {categoryLabels[p.category]}
-                      </Badge>
-                    </div>
-                  </div>
-                  <div
-                    className={cn(
-                      "p-4",
-                      view === "list" && "flex flex-1 flex-col justify-center py-2",
-                    )}
-                  >
-                    <h3 className="font-heading text-lg font-semibold text-white">
-                      {p.name}
-                    </h3>
-                    <p className="mt-1 line-clamp-2 text-sm text-white/55">
-                      {p.description}
-                    </p>
-                    <p className="mt-3 text-sm font-semibold text-bf-gold">
-                      {p.price}
-                    </p>
-                  </div>
-                </button>
-                <div
-                  className={cn(
-                    "flex gap-2 border-t border-bf-gold/10 p-3",
-                    view === "list" && "w-40 flex-col border-l border-t-0 p-3",
-                  )}
-                >
-                  <Link
-                    href={getWhatsAppProductUrl(p.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      buttonVariants({ size: "sm", variant: "outline" }),
-                      "flex-1 rounded-full border-bf-gold/30 text-bf-gold",
-                    )}
-                  >
-                    <MessageCircle className="size-3.5" />
-                    WhatsApp
-                  </Link>
-                  <Button
+                  <button
                     type="button"
-                    size="sm"
-                    className="flex-1 rounded-full bg-bf-leaf"
                     onClick={() => setSelected(p)}
+                    className={cn(
+                      "relative block w-full text-left",
+                      view === "list" ? "flex flex-1 flex-row gap-4 p-3" : "",
+                    )}
                   >
-                    Quick view
-                  </Button>
-                </div>
-              </motion.article>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                    <div
+                      className={cn(
+                        "relative overflow-hidden bg-white/5",
+                        view === "grid"
+                          ? "aspect-[5/4]"
+                          : "aspect-square w-36 shrink-0 rounded-2xl sm:w-44",
+                      )}
+                    >
+                      <Image
+                        src={p.image}
+                        alt=""
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-105"
+                        sizes="(max-width:768px) 100vw, 33vw"
+                      />
+                      <div className="absolute left-3 top-3">
+                        <Badge className="rounded-full bg-bf-charcoal/80 text-white/90 backdrop-blur">
+                          {categoryLabels[p.category]}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div
+                      className={cn(
+                        "p-4",
+                        view === "list" && "flex flex-1 flex-col justify-center py-2",
+                      )}
+                    >
+                      <h3 className="font-heading text-lg font-semibold text-white">
+                        {p.name}
+                      </h3>
+                      <p className="mt-1 line-clamp-2 text-sm text-white/55">
+                        {p.description}
+                      </p>
+                      <p className="mt-3 text-sm font-semibold text-bf-leaf">
+                        {availabilityForProduct(i)}
+                      </p>
+                    </div>
+                  </button>
+                  <div
+                    className={cn(
+                      "flex gap-2 border-t border-bf-gold/10 p-3",
+                      view === "list" && "w-40 flex-col border-l border-t-0 p-3",
+                    )}
+                  >
+                    <Link
+                      href={getWhatsAppProductUrl(p.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        buttonVariants({ size: "sm", variant: "outline" }),
+                        "flex-1 rounded-full border-bf-gold/30 text-bf-gold",
+                      )}
+                    >
+                      <MessageCircle className="size-3.5" />
+                      WhatsApp
+                    </Link>
+                    <Button
+                      type="button"
+                      size="sm"
+                      className="flex-1 rounded-full bg-bf-leaf"
+                      onClick={() => setSelected(p)}
+                    >
+                      Quick view
+                    </Button>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
-        {filtered.length === 0 ? (
+        {filtered.length === 0 && !pending ? (
           <p className="mt-10 text-center text-sm text-white/50">
             No matches — try a different search or category.
           </p>
@@ -417,8 +431,8 @@ export function ProductsCatalog() {
                   <Badge className="bg-bf-leaf/20 text-bf-leaf">
                     {categoryLabels[selected.category]}
                   </Badge>
-                  <Badge className="border-bf-gold/30 bg-bf-gold/15 font-semibold text-bf-gold">
-                    {selected.price}
+                  <Badge className="border-bf-leaf/30 bg-bf-leaf/10 font-semibold text-bf-leaf">
+                    Contact For Availability
                   </Badge>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">

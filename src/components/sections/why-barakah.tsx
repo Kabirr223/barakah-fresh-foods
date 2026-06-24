@@ -19,7 +19,7 @@ const points = [
   },
   {
     title: "Wholesale Supply",
-    body: "Volume pricing and consistent grades designed for restaurants, retailers, and caterers.",
+    body: "Volume supply and consistent grades designed for restaurants, retailers, and caterers.",
     icon: Package,
   },
   {
@@ -33,8 +33,8 @@ const points = [
     icon: Clock,
   },
   {
-    title: "Competitive Pricing",
-    body: "Fair wholesale rates that reward loyalty and regular weekly ordering.",
+    title: "Daily Availability",
+    body: "Fair wholesale rates with daily stock updates for loyal, regular weekly ordering.",
     icon: PoundSterling,
   },
   {
@@ -58,7 +58,7 @@ export function WhyBarakah() {
             <span className="text-gradient-brand">your business deserves</span>
           </h2>
           <p className="mt-4 text-white/65">
-            Premium produce, personal service, and pricing that works for
+            Premium produce, personal service, and daily availability for
             operators who move volume every week.
           </p>
         </RevealItem>

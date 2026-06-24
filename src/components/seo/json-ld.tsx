@@ -16,12 +16,19 @@ export function JsonLd() {
       postalCode: "LE2 1FX",
       addressCountry: siteConfig.country,
     },
-    areaServed: {
-      "@type": "City",
-      name: "Leicester",
-    },
-    priceRange: "££",
-    servesCuisine: "Fresh Produce Wholesale",
+    areaServed: [
+      { "@type": "City", name: "Leicester" },
+      { "@type": "AdministrativeArea", name: "Leicestershire" },
+    ],
+    knowsAbout: [
+      "Wholesale Fruit Supplier Leicester",
+      "Wholesale Vegetables Leicester",
+      "Fresh Produce Leicester",
+      "Fruit & Vegetable Wholesaler Leicester",
+      "Barakah Fresh Foods Leicester",
+      "Fresh Produce Supplier Leicester",
+    ],
+    slogan: siteConfig.tagline,
   };
 
   return (

@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Geist_Mono, Plus_Jakarta_Sans } from "next/font/goo
 import "./globals.css";
 import { AppProviders } from "@/components/providers/app-providers";
 import { CursorGlow } from "@/components/layout/cursor-glow";
+import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
+import { OrderDeadlineBanner } from "@/components/layout/order-deadline-banner";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -42,6 +44,8 @@ export const metadata: Metadata = {
     "Wholesale Vegetables Leicester",
     "Fresh Produce Leicester",
     "Fruit & Vegetable Wholesaler Leicester",
+    "Barakah Fresh Foods Leicester",
+    "Fresh Produce Supplier Leicester",
     "Barakah Fresh Foods",
     "wholesale produce Leicester",
     "fresh fruit wholesale Leicester",
@@ -76,17 +80,19 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className="dark">
       <body
-        className={`${bodySans.variable} ${displaySerif.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}
+        className={`${bodySans.variable} ${displaySerif.variable} ${geistMono.variable} min-h-screen bg-background pb-[4.25rem] font-sans antialiased lg:pb-0`}
       >
         <JsonLd />
         <AppProviders>
           <CursorGlow />
           <ScrollProgress />
+          <OrderDeadlineBanner />
           <SiteHeader />
           <main className="relative">{children}</main>
           <SiteFooter />
           <ScrollToTop />
           <WhatsAppFab />
+          <MobileContactBar />
         </AppProviders>
       </body>
     </html>

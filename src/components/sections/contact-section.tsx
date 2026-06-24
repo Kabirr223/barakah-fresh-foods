@@ -65,7 +65,7 @@ export function ContactSection() {
           </p>
           <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Get in touch for{" "}
-            <span className="text-gradient-gold">wholesale prices</span>
+            <span className="text-gradient-gold">wholesale enquiries</span>
           </h2>
         </motion.div>
 

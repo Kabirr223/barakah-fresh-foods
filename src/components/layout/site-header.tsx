@@ -6,7 +6,7 @@ import { useState } from "react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { cn } from "@/lib/utils";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
-import { siteConfig } from "@/config/site";
+import { useBanner } from "@/context/banner-context";
 import { useActiveSection, type SectionId } from "@/hooks/use-active-section";
 
 const links: { id: SectionId; label: string }[] = [
@@ -20,6 +20,7 @@ const links: { id: SectionId; label: string }[] = [
 export function SiteHeader() {
   const { scrollTo } = useLenisScroll();
   const active = useActiveSection();
+  const { dismissed, bannerHeight } = useBanner();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -33,16 +34,19 @@ export function SiteHeader() {
     setOpen(false);
   };
 
+  const topOffset = dismissed ? 0 : bannerHeight;
+
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50">
+      <header
+        className="fixed inset-x-0 z-50 transition-[top] duration-300"
+        style={{ top: topOffset }}
+      >
         <motion.div
           className={cn(
             "mx-auto max-w-7xl px-4 pt-4 transition-all sm:px-6 lg:px-8",
             scrolled && "pt-2",
           )}
-          animate={{ paddingTop: scrolled ? 8 : 16 }}
-          transition={{ duration: 0.3 }}
         >
           <motion.div
             className={cn(
@@ -63,7 +67,7 @@ export function SiteHeader() {
               </span>
               <span className="leading-tight">
                 <span className="block font-heading text-sm font-semibold tracking-wide text-white sm:text-base">
-                  {siteConfig.name}
+                  Barakah Fresh Foods
                 </span>
                 <span className="hidden text-[10px] uppercase tracking-[0.15em] text-bf-gold/80 sm:block">
                   Wholesale · Leicester
@@ -101,7 +105,7 @@ export function SiteHeader() {
                 onClick={() => go("contact")}
                 className="hidden h-10 items-center gap-2 rounded-full bg-bf-gold px-5 text-sm font-semibold text-bf-charcoal shadow-lg shadow-bf-gold/20 md:inline-flex"
               >
-                Get Wholesale Prices
+                Contact Us
               </MagneticButton>
               <button
                 type="button"
@@ -120,6 +124,7 @@ export function SiteHeader() {
         {open ? (
           <motion.div
             className="fixed inset-0 z-40 lg:hidden"
+            style={{ top: topOffset }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -161,7 +166,7 @@ export function SiteHeader() {
                   onClick={() => go("contact")}
                   className="flex h-12 w-full items-center justify-center rounded-full bg-bf-gold text-sm font-semibold text-bf-charcoal"
                 >
-                  Get Wholesale Prices
+                  Contact Us
                 </MagneticButton>
               </div>
             </motion.nav>

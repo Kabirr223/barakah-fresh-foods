@@ -3,7 +3,6 @@ export type ProductCategory = "vegetables" | "fruits" | "herbs";
 export interface Product {
   id: string;
   name: string;
-  price: string;
   category: ProductCategory;
   description: string;
   image: string;

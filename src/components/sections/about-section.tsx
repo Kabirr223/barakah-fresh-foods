@@ -55,8 +55,8 @@ export function AboutSection() {
             <RevealItem>
               <p className="mt-4 text-base leading-relaxed text-white/60">
                 Whether you run a restaurant, takeaway, catering operation, or
-                retail outlet, we provide competitive wholesale pricing, reliable
-                daily stock, and a personal service that larger distributors
+                retail outlet, we provide reliable wholesale supply, daily stock
+                updates, and a personal service that larger distributors
                 simply cannot match.
               </p>
             </RevealItem>

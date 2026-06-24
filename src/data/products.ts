@@ -40,7 +40,6 @@ export const products: Product[] = [
   {
     id: "veg-coconuts",
     name: "Coconuts",
-    price: "£16",
     category: "vegetables",
     description: "Fresh drinking coconuts — ideal for juice bars and dessert menus.",
     image: productImg("veg-coconuts"),
@@ -49,7 +48,6 @@ export const products: Product[] = [
   {
     id: "veg-vine-tomatoes",
     name: "Vine Tomatoes",
-    price: "£9.50",
     category: "vegetables",
     description: "Vine-ripened tomatoes with deep colour and balanced acidity.",
     image: productImg("veg-vine-tomatoes"),
@@ -58,7 +56,6 @@ export const products: Product[] = [
   {
     id: "veg-loose-tomato-dutch",
     name: "Loose Tomato Dutch",
-    price: "£13",
     category: "vegetables",
     description: "Dutch loose tomatoes — consistent sizing for prep teams.",
     image: productImg("veg-loose-tomato-dutch"),
@@ -66,7 +63,6 @@ export const products: Product[] = [
   {
     id: "veg-cherry-vine-dutch",
     name: "Cherry Vine Dutch",
-    price: "£16.50",
     category: "vegetables",
     description: "Sweet cherry tomatoes on the vine for premium plating.",
     image: productImg("veg-cherry-vine-dutch"),
@@ -75,7 +71,6 @@ export const products: Product[] = [
   {
     id: "veg-green-pepper",
     name: "Green Pepper",
-    price: "£14",
     category: "vegetables",
     description: "Firm capsicums with a clean, bright bite.",
     image: productImg("veg-green-pepper"),
@@ -83,7 +78,6 @@ export const products: Product[] = [
   {
     id: "veg-red-pepper",
     name: "Red Pepper",
-    price: "£15",
     category: "vegetables",
     description: "Fully coloured reds — excellent for roasting and grills.",
     image: productImg("veg-red-pepper"),
@@ -91,7 +85,6 @@ export const products: Product[] = [
   {
     id: "veg-yellow-pepper",
     name: "Yellow Pepper",
-    price: "£16",
     category: "vegetables",
     description: "Golden capsicums with mellow sweetness.",
     image: productImg("veg-yellow-pepper"),
@@ -99,7 +92,6 @@ export const products: Product[] = [
   {
     id: "veg-aubergine",
     name: "Aubergine",
-    price: "£10",
     category: "vegetables",
     description: "Glossy skins and creamy centres — perfect for grills and bakes.",
     image: productImg("veg-aubergine"),
@@ -107,7 +99,6 @@ export const products: Product[] = [
   {
     id: "veg-cucumber",
     name: "Cucumber",
-    price: "£9",
     category: "vegetables",
     description: "Crisp cucumbers for salads, pickles, and cold plates.",
     image: productImg("veg-cucumber"),
@@ -115,7 +106,6 @@ export const products: Product[] = [
   {
     id: "veg-courgette",
     name: "Courgette",
-    price: "£9",
     category: "vegetables",
     description: "Tender courgettes with delicate flavour for high-heat cooking.",
     image: productImg("veg-courgette"),
@@ -123,7 +113,6 @@ export const products: Product[] = [
   {
     id: "veg-carrots",
     name: "Carrots",
-    price: "£7",
     category: "vegetables",
     description: "Sweet, crunchy roots — ideal for stocks, roasts, and juicing.",
     image: productImg("veg-carrots"),
@@ -131,7 +120,6 @@ export const products: Product[] = [
   {
     id: "veg-sweet-potato",
     name: "Sweet Potato",
-    price: "£18",
     category: "vegetables",
     description: "Dense, sugary flesh — excellent yield for sides and fries.",
     image: productImg("veg-sweet-potato"),
@@ -139,7 +127,6 @@ export const products: Product[] = [
   {
     id: "veg-jalapeno",
     name: "Jalapeno",
-    price: "£18",
     category: "vegetables",
     description: "Bright heat with consistent spice levels batch to batch.",
     image: productImg("veg-jalapeno"),
@@ -147,7 +134,6 @@ export const products: Product[] = [
   {
     id: "veg-spanish-onion",
     name: "Spanish Onion",
-    price: "£16",
     category: "vegetables",
     description: "Large Spanish onions — high juice content for caramelisation.",
     image: productImg("veg-spanish-onion"),
@@ -155,7 +141,6 @@ export const products: Product[] = [
   {
     id: "veg-cyprus-potato",
     name: "Cyprus Potato",
-    price: "£30",
     category: "vegetables",
     description: "Premium Cyprus potatoes — fluffy texture, exceptional roast results.",
     image: productImg("veg-cyprus-potato"),
@@ -166,7 +151,6 @@ export const products: Product[] = [
   {
     id: "fr-custard-apples",
     name: "Custard Apples",
-    price: "£14",
     category: "fruits",
     description: "Aromatic custard apples — handle gently, serve at perfect ripeness.",
     image: productImg("fr-custard-apples"),
@@ -174,7 +158,6 @@ export const products: Product[] = [
   {
     id: "fr-banana-chiquita",
     name: "Banana Chiquita",
-    price: "£20",
     category: "fruits",
     description: "Branded Chiquita lines with dependable ripening curves.",
     image: productImg("fr-banana-chiquita"),
@@ -183,7 +166,6 @@ export const products: Product[] = [
   {
     id: "fr-royal-gala",
     name: "Royal Gala Apple",
-    price: "£16",
     category: "fruits",
     description: "Crisp gala apples with balanced sweetness.",
     image: productImg("fr-royal-gala"),
@@ -192,7 +174,6 @@ export const products: Product[] = [
   {
     id: "fr-green-apple",
     name: "Green Apple",
-    price: "£16.50",
     category: "fruits",
     description: "Tart green apples — excellent for pastry and juice.",
     image: productImg("fr-green-apple"),
@@ -200,7 +181,6 @@ export const products: Product[] = [
   {
     id: "fr-oranges",
     name: "Oranges",
-    price: "£13.50",
     category: "fruits",
     description: "Juicing and eating oranges with vibrant zest aroma.",
     image: productImg("fr-oranges"),
@@ -208,7 +188,6 @@ export const products: Product[] = [
   {
     id: "fr-lemons",
     name: "Lemons",
-    price: "£18",
     category: "fruits",
     description: "High-oil skins for bars, kitchens, and patisserie.",
     image: productImg("fr-lemons"),
@@ -216,7 +195,6 @@ export const products: Product[] = [
   {
     id: "fr-mango-brazil",
     name: "Mango Brazil",
-    price: "£8",
     category: "fruits",
     description: "Value-forward Brazilian mangoes for high-volume service.",
     image: productImg("fr-mango-brazil"),
@@ -224,7 +202,6 @@ export const products: Product[] = [
   {
     id: "fr-mango-by-air",
     name: "Mango By Air",
-    price: "£38",
     category: "fruits",
     description: "Air-freighted mangoes for peak aroma and silky texture.",
     image: productImg("fr-mango-by-air"),
@@ -233,15 +210,13 @@ export const products: Product[] = [
   {
     id: "fr-grapes",
     name: "Grapes",
-    price: "£18–22",
     category: "fruits",
-    description: "Seasonal grape lines — pricing varies by origin and bunch quality.",
+    description: "Seasonal grape lines — availability varies by origin and bunch quality.",
     image: productImg("fr-grapes"),
   },
   {
     id: "fr-pomegranate",
     name: "Pomegranate",
-    price: "£13.50",
     category: "fruits",
     description: "Ruby arils with bright acidity — retail and juice friendly.",
     image: productImg("fr-pomegranate"),
@@ -249,7 +224,6 @@ export const products: Product[] = [
   {
     id: "fr-watermelon",
     name: "Watermelon",
-    price: "£24",
     category: "fruits",
     description: "Heavy, resonant melons — cut-to-order programmes available.",
     image: productImg("fr-watermelon"),
@@ -260,7 +234,6 @@ export const products: Product[] = [
   {
     id: "hb-coriander",
     name: "Coriander",
-    price: "£10",
     category: "herbs",
     description: "Bunched coriander with intense aroma for finishing.",
     image: productImg("hb-coriander"),
@@ -269,7 +242,6 @@ export const products: Product[] = [
   {
     id: "hb-mint",
     name: "Mint",
-    price: "£14",
     category: "herbs",
     description: "Peppermint-forward bunches for drinks and desserts.",
     image: productImg("hb-mint"),
@@ -278,7 +250,6 @@ export const products: Product[] = [
   {
     id: "hb-spinach",
     name: "Spinach",
-    price: "£10",
     category: "herbs",
     description: "Tender leaves for wilting, smoothies, and retail packs.",
     image: productImg("hb-spinach"),
@@ -286,7 +257,6 @@ export const products: Product[] = [
   {
     id: "hb-parsley",
     name: "Parsley",
-    price: "£12",
     category: "herbs",
     description: "Flat and curly lines available — ask your account manager.",
     image: productImg("hb-parsley"),
@@ -294,12 +264,17 @@ export const products: Product[] = [
   {
     id: "hb-dill",
     name: "Dill",
-    price: "£12",
     category: "herbs",
     description: "Feathery dill for seafood, pickles, and sauces.",
     image: productImg("hb-dill"),
   },
 ];
+
+export const categoryDisplayCounts: Record<ProductCategory, number> = {
+  vegetables: 85,
+  fruits: 40,
+  herbs: 11,
+};
 
 export const categoryLabels: Record<ProductCategory, string> = {
   vegetables: "Vegetables & Fresh Produce",
