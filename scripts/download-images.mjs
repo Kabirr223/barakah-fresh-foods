@@ -6,7 +6,7 @@ const stockImages = {
   market:
     "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85",
   coconut:
-    "https://images.unsplash.com/photo-1767893813372-757457c91511?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1560769680-ba2f3767c785?auto=format&fit=crop&w=1200&q=85",
   vineTomatoes:
     "https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=1200&q=85",
   dutchTomatoes:
@@ -42,7 +42,7 @@ const stockImages = {
   galaApple:
     "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=1200&q=85",
   greenApple:
-    "https://images.unsplash.com/photo-1602081593819-65e7a8cee0dd?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1580829528279-6c364c5c7ea8?auto=format&fit=crop&w=1200&q=85",
   oranges:
     "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=1200&q=85",
   lemons:
