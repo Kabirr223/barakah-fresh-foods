@@ -6,7 +6,7 @@ const stockImages = {
   market:
     "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85",
   coconut:
-    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1767893813372-757457c91511?auto=format&fit=crop&w=1200&q=85",
   vineTomatoes:
     "https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=1200&q=85",
   dutchTomatoes:
@@ -18,7 +18,7 @@ const stockImages = {
   redPepper:
     "https://images.unsplash.com/photo-1587656221664-37e89ddebbf6?auto=format&fit=crop&w=1200&q=85",
   yellowPepper:
-    "https://images.unsplash.com/photo-1757904257534-a59576979ae4?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1611548106857-1c3edc7d44ee?auto=format&fit=crop&w=1200&q=85",
   aubergine:
     "https://images.unsplash.com/photo-1752529427389-6c6b5e9575dd?auto=format&fit=crop&w=1200&q=85",
   cucumber:
@@ -28,11 +28,11 @@ const stockImages = {
   carrots:
     "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=85",
   sweetPotato:
-    "https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1730815048561-45df6f7f331d?auto=format&fit=crop&w=1200&q=85",
   jalapeno:
-    "https://images.unsplash.com/photo-1583663848850-46af132dc08e?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1597115580039-b849ed2d6398?auto=format&fit=crop&w=1200&q=85",
   spanishOnion:
-    "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1757813027601-49030d3162ae?auto=format&fit=crop&w=1200&q=85",
   cyprusPotato:
     "https://images.unsplash.com/photo-1760368104765-f0441f4f4d6c?auto=format&fit=crop&w=1200&q=85",
   custardApple:
@@ -42,11 +42,11 @@ const stockImages = {
   galaApple:
     "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=1200&q=85",
   greenApple:
-    "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1602081593819-65e7a8cee0dd?auto=format&fit=crop&w=1200&q=85",
   oranges:
     "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=1200&q=85",
   lemons:
-    "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1740761408392-5c98e601b6c9?auto=format&fit=crop&w=1200&q=85",
   mango:
     "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1200&q=85",
   mangoByAir:
@@ -64,9 +64,9 @@ const stockImages = {
   spinach:
     "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=1200&q=85",
   parsley:
-    "https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1455881545252-dd7edc8e41d2?auto=format&fit=crop&w=1200&q=85",
   dill:
-    "https://images.unsplash.com/photo-1772974566478-ec3503d1559a?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1509210459313-17feefdff5cd?auto=format&fit=crop&w=1200&q=85",
   vegGreens:
     "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?auto=format&fit=crop&w=1200&q=85",
   fruitMix:
