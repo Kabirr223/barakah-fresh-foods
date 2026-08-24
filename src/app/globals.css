@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -108,10 +107,10 @@
 
 @layer utilities {
   .glass-panel {
-    @apply border border-white/10 bg-white/[0.06] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.45)] backdrop-blur-xl;
+    @apply border border-white/10 bg-[#35423e]/95 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.45)];
   }
   .glass-panel-gold {
-    @apply border border-bf-gold/25 bg-white/[0.05] shadow-[0_12px_48px_-16px_rgba(198,168,106,0.25)] backdrop-blur-xl;
+    @apply border border-bf-gold/25 bg-[#3a4844]/95 shadow-[0_12px_48px_-16px_rgba(198,168,106,0.25)];
   }
   .text-gradient-gold {
     @apply bg-linear-to-r from-bf-gold via-[#e0c992] to-bf-gold bg-clip-text text-transparent;

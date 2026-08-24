@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "@/components/providers/app-providers";
-import { CursorGlow } from "@/components/layout/cursor-glow";
 import { MobileContactBar } from "@/components/layout/mobile-contact-bar";
 import { OrderDeadlineBanner } from "@/components/layout/order-deadline-banner";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
@@ -88,7 +87,6 @@ export default function RootLayout({
       >
         <JsonLd />
         <AppProviders>
-          <CursorGlow />
           <ScrollProgress />
           <OrderDeadlineBanner />
           <SiteHeader />

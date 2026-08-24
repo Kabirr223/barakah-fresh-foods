@@ -80,7 +80,6 @@ export function WhyBarakah() {
                 hidden: { opacity: 0, y: 24 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
               }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
               className="glass-panel group relative rounded-3xl p-7 transition-shadow hover:shadow-lg hover:shadow-bf-gold/10"
             >
               <div className="flex size-12 items-center justify-center rounded-2xl bg-bf-leaf/15 text-bf-leaf ring-1 ring-bf-leaf/25 transition group-hover:scale-105">
@@ -92,7 +91,6 @@ export function WhyBarakah() {
               <p className="mt-2 text-sm leading-relaxed text-white/60">
                 {p.body}
               </p>
-              <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-bf-gold/5 blur-3xl" />
             </motion.li>
           ))}
         </motion.ul>

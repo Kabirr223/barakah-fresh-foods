@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
 import { useBanner } from "@/context/banner-context";
 import { useActiveSection, type SectionId } from "@/hooks/use-active-section";
+import { useScrolledPast } from "@/hooks/use-scrolled-past";
 import { siteConfig } from "@/config/site";
 
 const links: { id: SectionId; label: string }[] = [
@@ -24,12 +25,7 @@ export function SiteHeader() {
   const active = useActiveSection();
   const { dismissed, bannerHeight } = useBanner();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (v) => {
-    setScrolled(v > 40);
-  });
+  const scrolled = useScrolledPast(40);
 
   const go = (id: SectionId) => {
     scrollTo(id);
@@ -44,20 +40,19 @@ export function SiteHeader() {
         className="fixed inset-x-0 z-50 transition-[top] duration-300"
         style={{ top: topOffset }}
       >
-        <motion.div
+        <div
           className={cn(
             "mx-auto max-w-7xl px-4 pt-4 transition-all sm:px-6 lg:px-8",
             scrolled && "pt-2",
           )}
         >
-          <motion.div
+          <div
             className={cn(
               "flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-all duration-300 sm:px-5",
               scrolled
                 ? "glass-panel-gold border-bf-gold/20 shadow-lg"
                 : "bg-transparent",
             )}
-            layout
           >
             <button
               type="button"
@@ -84,17 +79,10 @@ export function SiteHeader() {
                   className={cn(
                     "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
                     active === l.id
-                      ? "text-bf-gold"
+                      ? "bg-bf-gold/10 text-bf-gold ring-1 ring-bf-gold/25"
                       : "text-white/70 hover:text-white",
                   )}
                 >
-                  {active === l.id ? (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-bf-gold/10 ring-1 ring-bf-gold/25"
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    />
-                  ) : null}
                   {l.label}
                 </button>
               ))}
@@ -116,8 +104,8 @@ export function SiteHeader() {
                 {open ? <X className="size-5" /> : <Menu className="size-5" />}
               </button>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </header>
 
       <AnimatePresence>
@@ -131,7 +119,7 @@ export function SiteHeader() {
           >
             <button
               type="button"
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/70"
               aria-label="Close menu"
               onClick={() => setOpen(false)}
             />
@@ -139,20 +127,17 @@ export function SiteHeader() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="absolute right-0 top-0 flex h-full w-[min(100%,360px)] flex-col gap-1 border-l border-bf-gold/20 bg-bf-charcoal/98 p-6 pt-20 backdrop-blur-xl"
+              transition={{ type: "tween", duration: 0.25 }}
+              className="absolute right-0 top-0 flex h-full w-[min(100%,360px)] flex-col gap-1 border-l border-bf-gold/20 bg-bf-charcoal p-6 pt-20"
               aria-label="Mobile primary"
             >
               <div className="mb-4 flex justify-center border-b border-bf-gold/15 pb-4">
                 <Logo size="md" showText={false} />
               </div>
-              {links.map((l, i) => (
-                <motion.button
+              {links.map((l) => (
+                <button
                   key={l.id}
                   type="button"
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i }}
                   onClick={() => go(l.id)}
                   className={cn(
                     "rounded-xl px-4 py-3.5 text-left text-base font-medium",
@@ -162,7 +147,7 @@ export function SiteHeader() {
                   )}
                 >
                   {l.label}
-                </motion.button>
+                </button>
               ))}
               <div className="mt-auto border-t border-bf-gold/20 pt-4">
                 <MagneticButton

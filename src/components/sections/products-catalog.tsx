@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Apple,
   ChevronDown,
@@ -55,6 +55,15 @@ const categoryIcons: Record<ProductCategory, typeof Leaf> = {
 function availabilityForProduct(index: number) {
   return getAvailabilityLabel(index);
 }
+
+const productActionBtnClass =
+  "h-11 min-h-11 flex-1 gap-2 rounded-full px-4 text-sm font-semibold sm:h-9 sm:min-h-9 sm:gap-1.5 sm:px-3 sm:text-[0.8rem]";
+
+const productActionBarClass =
+  "flex gap-2.5 border-t border-bf-gold/10 p-3.5 sm:gap-2 sm:p-3";
+
+const productActionBarListClass =
+  "w-full flex-row border-l-0 sm:w-44 sm:flex-col sm:border-l sm:border-t-0";
 
 export function ProductsCatalog() {
   const { activeCategory, setActiveCategory, search, setSearch } =
@@ -209,28 +218,20 @@ export function ProductsCatalog() {
             })}
           </div>
 
-          <AnimatePresence>
-            {expanded !== "all" && activeCategory === expanded ? (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
-                <div className="glass-panel rounded-2xl p-4">
-                  <p className="text-sm text-white/60">
-                    {categoryDisplayCounts[expanded]} lines in{" "}
-                    <span className="font-medium text-bf-gold">
-                      {categoryLabels[expanded]}
-                    </span>
-                    . Showing {getCategoryCount(expanded)} featured items —
-                    contact us for full daily stock list.
-                  </p>
-                </div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
+          {expanded !== "all" && activeCategory === expanded ? (
+            <div className="overflow-hidden">
+              <div className="glass-panel rounded-2xl p-4">
+                <p className="text-sm text-white/60">
+                  {categoryDisplayCounts[expanded]} lines in{" "}
+                  <span className="font-medium text-bf-gold">
+                    {categoryLabels[expanded]}
+                  </span>
+                  . Showing {getCategoryCount(expanded)} featured items —
+                  contact us for full daily stock list.
+                </p>
+              </div>
+            </div>
+          ) : null}
         </div>
 
         {activeCategory === "all" && !deferredSearch ? (
@@ -248,24 +249,20 @@ export function ProductsCatalog() {
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {featuredProducts.slice(0, 4).map((p, i) => (
-                <motion.button
+                <button
                   key={p.id}
                   type="button"
                   onClick={() => setSelected(p)}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  whileHover={{ y: -4 }}
-                  className="glass-panel-gold group overflow-hidden rounded-2xl text-left"
+                  className="glass-panel-gold group overflow-hidden rounded-2xl text-left transition hover:-translate-y-0.5"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={p.image}
                       alt={p.name}
                       fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      className="object-cover"
                       sizes="(max-width:768px) 50vw, 25vw"
+                      loading={i < 2 ? "eager" : "lazy"}
                     />
                     <Badge className="absolute left-3 top-3 rounded-full bg-bf-gold text-bf-charcoal">
                       Featured
@@ -279,7 +276,7 @@ export function ProductsCatalog() {
                       {availabilityForProduct(i)}
                     </p>
                   </div>
-                </motion.button>
+                </button>
               ))}
             </div>
           </motion.div>
@@ -295,8 +292,7 @@ export function ProductsCatalog() {
             <ProductGridSkeleton count={6} />
           </div>
         ) : (
-          <motion.div
-            layout
+          <div
             className={cn(
               "mt-8 gap-4",
               view === "grid"
@@ -304,21 +300,14 @@ export function ProductsCatalog() {
                 : "flex flex-col",
             )}
           >
-            <AnimatePresence mode="popLayout">
-              {filtered.map((p, i) => (
-                <motion.article
-                  layout
-                  key={p.id}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.22 }}
-                  whileHover={{ y: -4 }}
-                  className={cn(
-                    "group overflow-hidden rounded-3xl border border-bf-gold/15 bg-white/[0.04] shadow-sm backdrop-blur-md",
-                    view === "list" && "flex flex-row items-stretch",
-                  )}
-                >
+            {filtered.map((p, i) => (
+              <article
+                key={p.id}
+                className={cn(
+                  "group overflow-hidden rounded-3xl border border-bf-gold/15 bg-[#35423e]/90 shadow-sm",
+                  view === "list" && "flex flex-row items-stretch",
+                )}
+              >
                   <button
                     type="button"
                     onClick={() => setSelected(p)}
@@ -337,13 +326,14 @@ export function ProductsCatalog() {
                     >
                       <Image
                         src={p.image}
-                        alt=""
+                        alt={p.name}
                         fill
-                        className="object-cover transition duration-500 group-hover:scale-105"
+                        className="object-cover"
                         sizes="(max-width:768px) 100vw, 33vw"
+                        loading={i < 6 ? "eager" : "lazy"}
                       />
                       <div className="absolute left-3 top-3">
-                        <Badge className="rounded-full bg-bf-charcoal/80 text-white/90 backdrop-blur">
+                        <Badge className="rounded-full bg-bf-charcoal/90 text-white/90">
                           {categoryLabels[p.category]}
                         </Badge>
                       </div>
@@ -367,8 +357,8 @@ export function ProductsCatalog() {
                   </button>
                   <div
                     className={cn(
-                      "flex gap-2 border-t border-bf-gold/10 p-3",
-                      view === "list" && "w-40 flex-col border-l border-t-0 p-3",
+                      productActionBarClass,
+                      view === "list" && productActionBarListClass,
                     )}
                   >
                     <Link
@@ -376,26 +366,25 @@ export function ProductsCatalog() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
-                        buttonVariants({ size: "sm", variant: "outline" }),
-                        "flex-1 rounded-full border-bf-gold/30 text-bf-gold",
+                        buttonVariants({ variant: "outline" }),
+                        productActionBtnClass,
+                        "border-bf-gold/30 text-bf-gold",
                       )}
                     >
-                      <MessageCircle className="size-3.5" />
+                      <MessageCircle className="size-4 sm:size-3.5" />
                       WhatsApp
                     </Link>
                     <Button
                       type="button"
-                      size="sm"
-                      className="flex-1 rounded-full bg-bf-leaf"
+                      className={cn(productActionBtnClass, "bg-bf-leaf")}
                       onClick={() => setSelected(p)}
                     >
                       Quick view
                     </Button>
                   </div>
-                </motion.article>
+                </article>
               ))}
-            </AnimatePresence>
-          </motion.div>
+          </div>
         )}
 
         {filtered.length === 0 && !pending ? (
@@ -415,6 +404,7 @@ export function ProductsCatalog() {
                   alt={selected.name}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 512px) 100vw, 512px"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-bf-charcoal via-transparent to-transparent" />
               </div>
@@ -435,13 +425,14 @@ export function ProductsCatalog() {
                     {getAvailabilityLabel(0)}
                   </Badge>
                 </div>
-                <div className="flex flex-col gap-2 sm:flex-row">
+                <div className="flex flex-col gap-3 sm:flex-row sm:gap-2">
                   <Link
                     href={getWhatsAppProductUrl(selected.name)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={cn(
-                      buttonVariants({ className: "flex-1 rounded-full bg-bf-leaf" }),
+                      buttonVariants(),
+                      "h-12 flex-1 rounded-full bg-bf-leaf text-sm font-semibold sm:h-9",
                     )}
                   >
                     <MessageCircle className="size-4" />
@@ -450,7 +441,7 @@ export function ProductsCatalog() {
                   <Button
                     type="button"
                     variant="outline"
-                    className="flex-1 rounded-full border-bf-gold/30 text-bf-gold"
+                    className="h-12 flex-1 rounded-full border-bf-gold/30 text-sm font-semibold text-bf-gold sm:h-9"
                     onClick={() => setSelected(null)}
                   >
                     Close
