@@ -435,27 +435,18 @@ export function ProductsCatalog() {
                     {getAvailabilityLabel(0)}
                   </Badge>
                 </div>
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  <Link
-                    href={getWhatsAppProductUrl(selected.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      buttonVariants({ className: "flex-1 rounded-full bg-bf-leaf" }),
-                    )}
-                  >
-                    <MessageCircle className="size-4" />
-                    Enquire on WhatsApp
-                  </Link>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="flex-1 rounded-full border-bf-gold/30 text-bf-gold"
-                    onClick={() => setSelected(null)}
-                  >
-                    Close
-                  </Button>
-                </div>
+                <Link
+                  href={getWhatsAppProductUrl(selected.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    buttonVariants(),
+                    "h-12 w-full rounded-full bg-bf-leaf text-base font-semibold shadow-lg shadow-bf-leaf/25 sm:h-11",
+                  )}
+                >
+                  <MessageCircle className="size-5" />
+                  Enquire on WhatsApp
+                </Link>
               </div>
             </>
           ) : null}
