@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Apple, Leaf, Sprout } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCatalog } from "@/context/catalog-context";
@@ -25,18 +26,10 @@ export function CategoryStickyNav() {
     const section = document.getElementById("products");
     if (!section) return;
 
-    let ticking = false;
-
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const rect = section.getBoundingClientRect();
-        setStuck(rect.top <= 120 && rect.bottom > 200);
-        ticking = false;
-      });
+      const rect = section.getBoundingClientRect();
+      setStuck(rect.top <= 120 && rect.bottom > 200);
     };
-
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -51,13 +44,13 @@ export function CategoryStickyNav() {
   };
 
   return (
-    <div
+    <motion.div
       className={cn(
-        "sticky z-40 -mx-4 px-4 py-3 transition-colors sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8",
-        stuck
-          ? "top-[72px] border border-bf-gold/20 bg-[#3a4844]/95 shadow-lg"
-          : "top-0 bg-transparent",
+        "sticky z-40 -mx-4 px-4 py-3 transition-all sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8",
+        stuck ? "top-[72px] glass-panel-gold shadow-lg" : "top-0 bg-transparent",
       )}
+      initial={false}
+      animate={{ opacity: stuck ? 1 : 0.95 }}
     >
       <div className="flex flex-wrap justify-center gap-2">
         {allCategories.map((slug) => {
@@ -90,6 +83,6 @@ export function CategoryStickyNav() {
         {categoryLabels.vegetables} · {categoryLabels.fruits} ·{" "}
         {categoryLabels.herbs}
       </p>
-    </div>
+    </motion.div>
   );
 }
