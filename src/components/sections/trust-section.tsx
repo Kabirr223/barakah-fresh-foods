@@ -9,6 +9,7 @@ import {
   Package,
   Zap,
 } from "lucide-react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const badges = [
   { label: "Fresh Daily Stock", icon: Leaf },
@@ -20,6 +21,8 @@ const badges = [
 ];
 
 export function TrustSection() {
+  const reduced = useReducedMotion();
+
   return (
     <section
       id="trust"
@@ -43,12 +46,17 @@ export function TrustSection() {
                 hidden: { opacity: 0, y: 14 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
               }}
-              whileHover={{ y: -3 }}
-              className="glass-panel flex flex-col items-center gap-2 rounded-2xl px-3 py-4 text-center transition hover:border-bf-gold/30"
+              whileHover={reduced ? undefined : { y: -3 }}
+              whileTap={reduced ? undefined : { scale: 0.98 }}
+              className="glass-panel flex flex-col items-center gap-2 rounded-2xl px-3 py-4 text-center transition hover:border-bf-gold/30 focus-within:border-bf-gold/30"
             >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-bf-leaf/15 text-bf-leaf ring-1 ring-bf-leaf/25">
+              <motion.span
+                className="flex size-9 items-center justify-center rounded-xl bg-bf-leaf/15 text-bf-leaf ring-1 ring-bf-leaf/25"
+                whileHover={reduced ? undefined : { scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 18 }}
+              >
                 <b.icon className="size-4" />
-              </span>
+              </motion.span>
               <span className="text-xs font-medium leading-tight text-white/85 sm:text-sm">
                 {b.label}
               </span>

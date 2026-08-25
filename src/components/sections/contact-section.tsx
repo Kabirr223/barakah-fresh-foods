@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getWhatsAppOrderUrl, siteConfig } from "@/config/site";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const schema = z.object({
@@ -25,6 +27,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export function ContactSection() {
+  const reduced = useReducedMotion();
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -80,8 +83,16 @@ export function ContactSection() {
               {siteConfig.name}
             </h3>
             <ul className="mt-8 space-y-6 text-sm">
-              <li className="flex gap-4">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-bf-gold" />
+              <motion.li
+                className="flex gap-4"
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <motion.span whileHover={reduced ? undefined : { scale: 1.1 }}>
+                  <MapPin className="mt-0.5 size-5 shrink-0 text-bf-gold" />
+                </motion.span>
                 <span className="text-white/80">
                   {siteConfig.addressLine1}
                   <br />
@@ -89,69 +100,106 @@ export function ContactSection() {
                   <br />
                   {siteConfig.addressPostcode}
                 </span>
-              </li>
-              <li className="flex items-center gap-4">
-                <Phone className="size-5 text-bf-gold" />
+              </motion.li>
+              <motion.li
+                className="flex items-center gap-4"
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+              >
+                <motion.span whileHover={reduced ? undefined : { rotate: [0, -12, 12, 0] }} transition={{ duration: 0.4 }}>
+                  <Phone className="size-5 text-bf-gold" />
+                </motion.span>
                 <a
                   className="font-medium text-white hover:text-bf-gold"
                   href={`tel:${siteConfig.phoneE164}`}
                 >
                   {siteConfig.phoneDisplay}
                 </a>
-              </li>
-              <li className="flex items-center gap-4">
-                <Mail className="size-5 text-bf-gold" />
+              </motion.li>
+              <motion.li
+                className="flex items-center gap-4"
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <motion.span whileHover={reduced ? undefined : { y: -2 }}>
+                  <Mail className="size-5 text-bf-gold" />
+                </motion.span>
                 <a
                   className="font-medium text-white hover:text-bf-gold"
                   href={`mailto:${siteConfig.email}`}
                 >
                   {siteConfig.email}
                 </a>
-              </li>
-              <li className="flex gap-4">
-                <Clock className="mt-0.5 size-5 shrink-0 text-bf-gold" />
+              </motion.li>
+              <motion.li
+                className="flex gap-4"
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.25 }}
+              >
+                <motion.span
+                  animate={reduced ? undefined : { rotate: [0, 8, -8, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Clock className="mt-0.5 size-5 shrink-0 text-bf-gold" />
+                </motion.span>
                 <span className="text-white/80">
                   {siteConfig.hours.weekdays}
                   <br />
                   {siteConfig.hours.sunday}
                 </span>
-              </li>
+              </motion.li>
             </ul>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
+            <motion.div
+              className="mt-8 flex flex-wrap gap-3"
+              variants={reduced ? undefined : staggerContainer(0.08)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.a
+                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
                 href={`tel:${siteConfig.phoneE164}`}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "rounded-full border-bf-gold/30 text-bf-gold",
+                  "rounded-full border-bf-gold/30 text-bf-gold transition-transform hover:-translate-y-0.5 active:scale-[0.98]",
                 )}
               >
                 <Phone className="size-4" />
                 Click to Call
-              </a>
+              </motion.a>
+              <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}>
               <Link
                 href={getWhatsAppOrderUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants(),
-                  "rounded-full bg-[#25D366] hover:bg-[#20bd5a]",
+                  "rounded-full bg-[#25D366] transition-transform hover:-translate-y-0.5 active:scale-[0.98] hover:bg-[#20bd5a]",
                 )}
               >
                 <MessageCircle className="size-4" />
                 WhatsApp
               </Link>
-              <a
+              </motion.div>
+              <motion.a
+                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
                 href={`mailto:${siteConfig.email}`}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "rounded-full border-bf-gold/30 text-bf-gold",
+                  "rounded-full border-bf-gold/30 text-bf-gold transition-transform hover:-translate-y-0.5 active:scale-[0.98]",
                 )}
               >
                 <Mail className="size-4" />
                 Email
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -258,9 +306,10 @@ export function ContactSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mt-14 overflow-hidden rounded-3xl border border-bf-gold/20 shadow-xl"
         >
           <div className="aspect-[21/9] min-h-[220px] w-full sm:min-h-[280px]">

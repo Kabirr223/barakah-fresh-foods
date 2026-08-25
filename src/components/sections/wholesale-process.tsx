@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { PackageSearch, Send, Truck } from "lucide-react";
 import { RevealItem, SectionReveal } from "@/components/ui/section-reveal";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const steps = [
   {
@@ -26,9 +28,17 @@ const steps = [
 ];
 
 export function WholesaleProcess() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.8", "end 0.4"],
+  });
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <SectionReveal id="process" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div ref={ref} className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <RevealItem className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-bf-gold">
             Wholesale Process
@@ -40,7 +50,12 @@ export function WholesaleProcess() {
         </RevealItem>
 
         <div className="relative mt-16">
-          <div className="absolute left-0 right-0 top-16 hidden h-px bg-linear-to-r from-transparent via-bf-gold/40 to-transparent lg:block" />
+          <div className="absolute left-0 right-0 top-16 hidden h-px overflow-hidden lg:block">
+            <motion.div
+              className="h-full w-full origin-left bg-linear-to-r from-transparent via-bf-gold/50 to-transparent"
+              style={reduced ? undefined : { scaleX: lineScale }}
+            />
+          </div>
           <motion.ol
             className="grid gap-8 lg:grid-cols-3"
             initial="hidden"
@@ -62,7 +77,8 @@ export function WholesaleProcess() {
               >
                 <motion.div
                   className="relative mx-auto flex size-16 items-center justify-center rounded-2xl border border-bf-gold/30 bg-bf-gold/10 text-bf-gold shadow-lg shadow-bf-gold/10"
-                  whileHover={{ scale: 1.08 }}
+                  whileHover={reduced ? undefined : { scale: 1.08 }}
+                  whileTap={reduced ? undefined : { scale: 0.98 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <s.icon className="size-7" />
@@ -73,7 +89,7 @@ export function WholesaleProcess() {
 
                 {i < steps.length - 1 ? (
                   <motion.div
-                    className="mx-auto my-4 h-8 w-px bg-bf-gold/30 lg:hidden"
+                    className="mx-auto my-4 h-8 w-px origin-top overflow-hidden bg-bf-gold/30 lg:hidden"
                     initial={{ scaleY: 0 }}
                     whileInView={{ scaleY: 1 }}
                     viewport={{ once: true }}

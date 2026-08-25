@@ -44,6 +44,7 @@ import {
   products,
 } from "@/data/products";
 import type { Product, ProductCategory } from "@/types/catalog";
+import { productGridItem } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const categoryIcons: Record<ProductCategory, typeof Leaf> = {
@@ -256,16 +257,16 @@ export function ProductsCatalog() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  whileHover={{ y: -4 }}
-                  className="glass-panel-gold group overflow-hidden rounded-2xl text-left"
+                  className="product-card-interactive glass-panel-gold group overflow-hidden rounded-2xl text-left"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={p.image}
                       alt={p.name}
                       fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      className="product-card-image object-cover"
                       sizes="(max-width:768px) 50vw, 25vw"
+                      loading={i < 2 ? "eager" : "lazy"}
                     />
                     <Badge className="absolute left-3 top-3 rounded-full bg-bf-gold text-bf-charcoal">
                       Featured
@@ -296,7 +297,9 @@ export function ProductsCatalog() {
           </div>
         ) : (
           <motion.div
-            layout
+            key={`${activeCategory}-${deferredSearch}-${view}`}
+            initial="hidden"
+            animate="visible"
             className={cn(
               "mt-8 gap-4",
               view === "grid"
@@ -307,15 +310,15 @@ export function ProductsCatalog() {
             <AnimatePresence mode="popLayout">
               {filtered.map((p, i) => (
                 <motion.article
-                  layout
                   key={p.id}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.22 }}
-                  whileHover={{ y: -4 }}
+                  custom={i}
+                  variants={productGridItem}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  layout={false}
                   className={cn(
-                    "group overflow-hidden rounded-3xl border border-bf-gold/15 bg-white/[0.04] shadow-sm backdrop-blur-md",
+                    "product-card-interactive group overflow-hidden rounded-3xl border border-bf-gold/15 bg-white/[0.04] shadow-sm backdrop-blur-md",
                     view === "list" && "flex flex-row items-stretch",
                   )}
                 >
@@ -337,10 +340,11 @@ export function ProductsCatalog() {
                     >
                       <Image
                         src={p.image}
-                        alt=""
+                        alt={p.name}
                         fill
-                        className="object-cover transition duration-500 group-hover:scale-105"
+                        className="product-card-image object-cover"
                         sizes="(max-width:768px) 100vw, 33vw"
+                        loading={i < 6 ? "eager" : "lazy"}
                       />
                       <div className="absolute left-3 top-3">
                         <Badge className="rounded-full bg-bf-charcoal/80 text-white/90 backdrop-blur">

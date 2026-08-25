@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { siteConfig } from "@/config/site";
 
 export function OrderReminderSection() {
   const { scrollTo } = useLenisScroll();
+  const reduced = useReducedMotion();
 
   return (
     <section
@@ -16,13 +18,17 @@ export function OrderReminderSection() {
     >
       <motion.div
         className="pointer-events-none absolute inset-0"
-        animate={{
-          background: [
-            "radial-gradient(800px circle at 30% 50%, rgba(198, 168, 106, 0.15), transparent 60%)",
-            "radial-gradient(800px circle at 70% 50%, rgba(76, 175, 80, 0.12), transparent 60%)",
-            "radial-gradient(800px circle at 30% 50%, rgba(198, 168, 106, 0.15), transparent 60%)",
-          ],
-        }}
+        animate={
+          reduced
+            ? undefined
+            : {
+                background: [
+                  "radial-gradient(800px circle at 30% 50%, rgba(198, 168, 106, 0.15), transparent 60%)",
+                  "radial-gradient(800px circle at 70% 50%, rgba(76, 175, 80, 0.12), transparent 60%)",
+                  "radial-gradient(800px circle at 30% 50%, rgba(198, 168, 106, 0.15), transparent 60%)",
+                ],
+              }
+        }
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -36,7 +42,7 @@ export function OrderReminderSection() {
         >
           <motion.div
             className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-bf-gold/15 text-bf-gold ring-1 ring-bf-gold/30"
-            animate={{ rotate: [0, 5, -5, 0] }}
+            animate={reduced ? undefined : { rotate: [0, 5, -5, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             <Clock className="size-7" />

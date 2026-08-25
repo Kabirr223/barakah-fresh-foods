@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { getWhatsAppOrderUrl } from "@/config/site";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -18,6 +19,8 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function WhatsAppFab() {
+  const reduced = useReducedMotion();
+
   return (
     <motion.div
       className="fixed bottom-[4.5rem] right-4 z-50 md:bottom-8 md:right-8"
@@ -29,11 +32,10 @@ export function WhatsAppFab() {
         href={getWhatsAppOrderUrl()}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center gap-2.5 rounded-full bg-[#25D366] py-3 pl-4 pr-5 text-white shadow-[0_12px_40px_-8px_rgba(37,211,102,0.65)] ring-2 ring-white/20 transition-transform hover:-translate-y-1 hover:shadow-[0_16px_48px_-8px_rgba(37,211,102,0.75)] active:scale-95"
+        className={`group relative flex items-center gap-2.5 rounded-full bg-[#25D366] py-3 pl-4 pr-5 text-white ring-2 ring-white/20 transition-transform hover:-translate-y-1 active:scale-95 ${reduced ? "" : "bf-wa-pulse"}`}
         aria-label="Order on WhatsApp"
       >
-        <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366] opacity-20" />
-        <span className="relative flex size-9 items-center justify-center rounded-full bg-white/15">
+        <span className="relative flex size-9 items-center justify-center rounded-full bg-white/15 transition-transform group-hover:scale-105">
           <WhatsAppIcon className="size-5" />
         </span>
         <span className="relative hidden text-sm font-semibold sm:inline">

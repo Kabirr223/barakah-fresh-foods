@@ -10,6 +10,8 @@ import {
   PoundSterling,
 } from "lucide-react";
 import { RevealItem, SectionReveal } from "@/components/ui/section-reveal";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { fadeUp } from "@/lib/motion";
 
 const points = [
   {
@@ -45,6 +47,8 @@ const points = [
 ];
 
 export function WhyBarakah() {
+  const reduced = useReducedMotion();
+
   return (
     <SectionReveal id="why" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 bg-luxury-mesh opacity-50" />
@@ -76,23 +80,25 @@ export function WhyBarakah() {
           {points.map((p) => (
             <motion.li
               key={p.title}
-              variants={{
-                hidden: { opacity: 0, y: 24 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
-              }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="glass-panel group relative rounded-3xl p-7 transition-shadow hover:shadow-lg hover:shadow-bf-gold/10"
+              variants={fadeUp}
+              whileHover={reduced ? undefined : { y: -6 }}
+              whileTap={reduced ? undefined : { scale: 0.99 }}
+              className="glass-panel group relative rounded-3xl p-7 transition-[box-shadow,border-color] duration-300 hover:border-bf-gold/30 hover:shadow-lg hover:shadow-bf-gold/10 focus-within:border-bf-gold/30 focus-within:shadow-lg focus-within:shadow-bf-gold/10"
             >
-              <div className="flex size-12 items-center justify-center rounded-2xl bg-bf-leaf/15 text-bf-leaf ring-1 ring-bf-leaf/25 transition group-hover:scale-105">
+              <motion.div
+                className="flex size-12 items-center justify-center rounded-2xl bg-bf-leaf/15 text-bf-leaf ring-1 ring-bf-leaf/25 transition-colors group-hover:bg-bf-leaf/20"
+                whileHover={reduced ? undefined : { scale: 1.08, rotate: 3 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <p.icon className="size-5" />
-              </div>
+              </motion.div>
               <h3 className="mt-5 font-heading text-lg font-semibold text-white">
                 {p.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-white/60">
                 {p.body}
               </p>
-              <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-bf-gold/5 blur-3xl" />
+              <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-bf-gold/5 blur-3xl transition-opacity group-hover:opacity-80" />
             </motion.li>
           ))}
         </motion.ul>

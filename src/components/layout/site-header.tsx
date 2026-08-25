@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { useLenisScroll } from "@/components/providers/lenis-provider";
 import { useBanner } from "@/context/banner-context";
 import { useActiveSection, type SectionId } from "@/hooks/use-active-section";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { easePremium } from "@/lib/motion";
 import { siteConfig } from "@/config/site";
 
 const links: { id: SectionId; label: string }[] = [
@@ -26,6 +28,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const reduced = useReducedMotion();
 
   useMotionValueEvent(scrollY, "change", (v) => {
     setScrolled(v > 40);
@@ -49,15 +52,22 @@ export function SiteHeader() {
             "mx-auto max-w-7xl px-4 pt-4 transition-all sm:px-6 lg:px-8",
             scrolled && "pt-2",
           )}
+          initial={reduced ? false : { opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: easePremium, delay: 0.1 }}
         >
           <motion.div
             className={cn(
-              "flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-all duration-300 sm:px-5",
+              "flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-all duration-500 sm:px-5",
               scrolled
-                ? "glass-panel-gold border-bf-gold/20 shadow-lg"
+                ? "glass-panel-gold border-bf-gold/20 shadow-lg backdrop-blur-xl"
                 : "bg-transparent",
             )}
-            layout
+            animate={{
+              paddingTop: scrolled ? 10 : 12,
+              paddingBottom: scrolled ? 10 : 12,
+            }}
+            transition={{ duration: 0.35, ease: easePremium }}
           >
             <button
               type="button"
@@ -82,7 +92,7 @@ export function SiteHeader() {
                   type="button"
                   onClick={() => go(l.id)}
                   className={cn(
-                    "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    "nav-link-underline relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
                     active === l.id
                       ? "text-bf-gold"
                       : "text-white/70 hover:text-white",
@@ -103,17 +113,31 @@ export function SiteHeader() {
             <div className="flex items-center gap-2">
               <MagneticButton
                 onClick={() => go("contact")}
-                className="hidden h-10 items-center gap-2 rounded-full bg-bf-gold px-5 text-sm font-semibold text-bf-charcoal shadow-lg shadow-bf-gold/20 md:inline-flex"
+                className="hidden h-10 items-center gap-2 rounded-full bg-bf-gold px-5 text-sm font-semibold text-bf-charcoal shadow-lg shadow-bf-gold/20 transition-transform hover:-translate-y-0.5 active:scale-[0.98] md:inline-flex"
               >
                 Contact Us
               </MagneticButton>
               <button
                 type="button"
-                className="flex size-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
+                className="relative flex size-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
                 aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
                 onClick={() => setOpen((v) => !v)}
               >
-                {open ? <X className="size-5" /> : <Menu className="size-5" />}
+                <motion.span
+                  animate={open ? { rotate: 90, opacity: 0 } : { rotate: 0, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute"
+                >
+                  <Menu className="size-5" />
+                </motion.span>
+                <motion.span
+                  animate={open ? { rotate: 0, opacity: 1 } : { rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute"
+                >
+                  <X className="size-5" />
+                </motion.span>
               </button>
             </div>
           </motion.div>
@@ -128,6 +152,7 @@ export function SiteHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
             <button
               type="button"
@@ -152,10 +177,10 @@ export function SiteHeader() {
                   type="button"
                   initial={{ opacity: 0, x: 24 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i }}
+                  transition={{ delay: 0.05 + i * 0.05, duration: 0.3 }}
                   onClick={() => go(l.id)}
                   className={cn(
-                    "rounded-xl px-4 py-3.5 text-left text-base font-medium",
+                    "rounded-xl px-4 py-3.5 text-left text-base font-medium transition-colors active:scale-[0.99]",
                     active === l.id
                       ? "bg-bf-gold/15 text-bf-gold"
                       : "text-white/80 hover:bg-white/5",
@@ -167,7 +192,7 @@ export function SiteHeader() {
               <div className="mt-auto border-t border-bf-gold/20 pt-4">
                 <MagneticButton
                   onClick={() => go("contact")}
-                  className="flex h-12 w-full items-center justify-center rounded-full bg-bf-gold text-sm font-semibold text-bf-charcoal"
+                  className="flex h-12 w-full items-center justify-center rounded-full bg-bf-gold text-sm font-semibold text-bf-charcoal active:scale-[0.98]"
                 >
                   Contact Us
                 </MagneticButton>

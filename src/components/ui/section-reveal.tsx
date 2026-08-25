@@ -2,21 +2,9 @@
 
 import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { easePremium, fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { cn } from "@/lib/utils";
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
 
 interface SectionRevealProps {
   children: ReactNode;
@@ -25,14 +13,16 @@ interface SectionRevealProps {
 }
 
 export function SectionReveal({ children, className, id }: SectionRevealProps) {
+  const reduced = useReducedMotion();
+
   return (
     <motion.section
       id={id}
       className={cn("scroll-mt-28", className)}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={stagger}
+      viewport={viewportOnce}
+      variants={reduced ? fadeUp : staggerContainer(0.1)}
     >
       {children}
     </motion.section>
@@ -42,12 +32,28 @@ export function SectionReveal({ children, className, id }: SectionRevealProps) {
 export function RevealItem({
   children,
   className,
+  variant = "fadeUp",
 }: {
   children: ReactNode;
   className?: string;
+  variant?: "fadeUp" | "scaleIn";
 }) {
+  const reduced = useReducedMotion();
+  const variants: Variants = reduced
+    ? fadeUp
+    : variant === "scaleIn"
+      ? {
+          hidden: { opacity: 0, scale: 0.96 },
+          visible: {
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 0.55, ease: easePremium },
+          },
+        }
+      : fadeUp;
+
   return (
-    <motion.div variants={fadeUp} className={className}>
+    <motion.div variants={variants} className={className}>
       {children}
     </motion.div>
   );

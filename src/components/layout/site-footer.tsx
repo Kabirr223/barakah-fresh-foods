@@ -20,9 +20,18 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-bf-gold/15 bg-bf-charcoal pb-10 pt-16">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-bf-gold/40 to-transparent" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+    <footer className="relative overflow-hidden border-t border-bf-gold/15 bg-bf-charcoal pb-10 pt-16">
+      <div className="pointer-events-none absolute inset-0 bg-hero-animated opacity-30" aria-hidden />
+      <div className="pointer-events-none absolute -left-20 top-10 size-48 rounded-full bg-bf-gold/5 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-16 bottom-10 size-56 rounded-full bg-bf-leaf/5 blur-3xl" aria-hidden />
+      <motion.div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-bf-gold/40 to-transparent"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      />
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
         <motion.div
           className="lg:col-span-5"
           initial={{ opacity: 0, y: 16 }}
@@ -138,7 +147,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-bf-gold/10 px-4 pt-8 text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
+      <div className="relative mx-auto mt-14 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-bf-gold/10 px-4 pt-8 text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
         <p>
           © {year} {siteConfig.name}. All rights reserved.
         </p>
